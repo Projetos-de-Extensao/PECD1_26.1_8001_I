@@ -42,7 +42,7 @@ A gestão e o lançamento de horas são realizados integralmente pelo Campus Vir
 2.4 Recomendação de Prazo
 Os manuais institucionais do Ibmec recomendam que o aluno cumpra ao menos 80% da carga horária de atividades complementares até o penúltimo período do curso. O não cumprimento da totalidade das horas exigidas configura impedimento formal para a colação de grau, independentemente do desempenho acadêmico nas demais disciplinas.
 
-4. Plataformas e Soluções de Referência
+3. Plataformas e Soluções de Referência
 
 - Aprenda Mais (MEC)	Geral — diversas áreas	100% gratuito, certificado imediato, respaldado pelo MEC
 
