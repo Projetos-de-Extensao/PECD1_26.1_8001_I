@@ -18,3 +18,19 @@ Do ponto de vista pedagógico, as AAC existem para garantir que a formação do 
 •	Pesquisa — iniciação científica, participação em grupos de pesquisa, publicação de artigos, apresentação de trabalhos em congressos.
 •	Extensão — projetos sociais, empresas juniores, estágios não obrigatórios, voluntariado, ligas acadêmicas.
 É vedado, por legislação federal, equiparar as atividades complementares ao Estágio Curricular Supervisionado Obrigatório. Estágios não obrigatórios, contudo, podem ser computados como AAC dentro dos limites definidos por cada IES.
+
+2. Regulamentação Institucional — Modelo Ibmec
+2.1 Tipos de Atividades Reconhecidas
+O Ibmec adota uma classificação binária das atividades complementares, distinguindo-as entre internas e externas. Essa distinção influencia diretamente o fluxo de submissão e os prazos de validação aplicáveis:
+•	Atividades internas: realizadas no próprio ambiente institucional, tais como iniciação científica, monitoria, palestras e eventos promovidos pela faculdade, e participação em Ligas Acadêmicas. O lançamento costuma ser mais fluido, com prazo de até 30 dias.
+•	Atividades externas: realizadas fora do Ibmec, como cursos livres, eventos de terceiros e estágios não obrigatórios. Para serem validadas, precisam obrigatoriamente apresentar conexão temática com a área de atuação do curso do aluno.
+2.2 Limites por Categoria
+Para evitar que o aluno concentre todas as suas horas em uma única modalidade, o Ibmec estabelece tetos de aproveitamento por subgrupo de atividade. Os principais limites praticados são os seguintes:
+Tipo de atividade	Limite máximo
+Estágios não obrigatórios	100 horas
+Monitoria acadêmica	100 horas
+Cursos livres de idiomas	30 horas
+Participação em defesas de TCC (como ouvinte)	10 horas (1h por defesa)
+Eventos científicos e congressos	Variável conforme regulamento interno
+Iniciação científica e pesquisa	Variável conforme regulamento interno
+
