@@ -22,16 +22,13 @@ A equipe se reuniu para debater ideias gerais sobre o projeto via..., começou .
 ### 1. Qual o objetivo principal da aplicação?
  
 <p align = "justify">
-<b>XXXX</b> - Deve ser uma plataforma onde qualquer pessoa possa...
-</p>
  
-<b>ZZZ</b> - A plataforma deve fornece...
- 
-<b>YYYY</b> - O objetivo da aplicação é....
- 
-<b>WWWW</b> - O principal objetivo da aplicação é a...
- 
-<b>KKKK</b> - A plataforma deve gerenciar...
+<b>Leonardo</b> - Deve ser uma plataforma onde qualquer aluno possa adicionar e acompanhar suas horas de AAC de forma simples, sem depender de e-mail ou da secretaria para saber o status.
+-A plataforma deve fornecer uma visão centralizada do progresso de cada aluno, permitindo que coordenadores validem certificados e que a secretaria homologue tudo em um único lugar.
+— O objetivo da aplicação é eliminar o processo manual de validação de horas, automatizando a triagem dos certificados enviados e reduzindo o tempo de resposta para o aluno.
+— O principal objetivo é criar um sistema que conecte os três atores — aluno, coordenador e secretaria — em um fluxo único e rastreável, do envio do certificado até o lançamento no histórico.
+— A plataforma deve gerenciar todo o ciclo das atividades complementares, desde o catálogo de atividades válidas por curso até a notificação automática do aluno sobre o resultado da análise.
+
 </p>
  
 ---
