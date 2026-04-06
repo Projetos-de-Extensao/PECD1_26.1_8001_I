@@ -41,20 +41,16 @@ Julia — O cadastro deve ser vinculado ao e-mail institucional do Ibmec, garant
  
 ---
  
-### 3. Como será a forma de adicionar produtos?
+### 3. Como será o processo de envio de um certificado de atividade? 
  
 <p align = "justify">
-<b>XXXX</b> - O cliente ao cadastrar...
+<b>Carlos</b> - O aluno deve fazer upload do PDF ou imagem do certificado. O sistema lê automaticamente o documento e pré-preenche os campos de carga horária, instituição emissora e data.
+— O certificado deve ter validação automática básica antes de ir para o coordenador: se não tiver carga horária legível ou data, o sistema já avisa o aluno que o documento está incompleto.
+— O processo deve ser feito em uma tela única, sem etapas desnecessárias. O aluno sobe o arquivo, confirma os dados extraídos automaticamente e envia — tudo em menos de dois minutos.
+— Cada certificado deve ser associado a uma categoria do catálogo de atividades. O próprio sistema pode sugerir a categoria com base no conteúdo extraído, e o aluno confirma ou corrige.
+— O produto deve registrar a data e hora exata do envio para fins de auditoria, e o aluno deve receber uma confirmação imediata de que o certificado foi recebido.
 </p>
  
-<p align = "justify">
-<b>YYYYY</b> - O produto tem...
-</p>
- 
-<b>ZZZZ</b> - O produto....
- 
-<b>XXXX</b> - O produto....
-
  
 ---
  
