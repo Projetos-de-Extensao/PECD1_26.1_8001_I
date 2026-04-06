@@ -10,7 +10,7 @@ O brainstorm é uma técnica de elicitação de requisitos que consiste em reuni
  
 ## Metodologia
 <p align = "justify">
-A equipe se reuniu para debater ideias gerais sobre o projeto via..., começou .... e terminou..., onde o XXXX XXXX foi o moderador, direcionando a equipe com questões pré-elaboradas, e transcrevendo as respostas para o documento.
+A equipe se reuniu para debater ideias gerais sobre o projeto via Notion onde cada um compartilhou suas ideias, começou e terminou no domingo dia 5.
 </p>
  
 ## Brainstorm
@@ -36,15 +36,8 @@ A equipe se reuniu para debater ideias gerais sobre o projeto via..., começou .
 ### 2. Como será o processo para cadastrar um novo clientetorneio?
  
 <p align = "justify">
-<b>XXXX</b> - O moderador deverá fazer login e...
- 
-<b>YYYY</b> - O cliente...
- 
-<b>WWWW</b> - Com o usuário logado, ele deverá...
+Julia — O cadastro deve ser vinculado ao e-mail institucional do Ibmec, garantindo que apenas alunos, coordenadores e funcionários da secretaria consigam acessar a plataforma. O aluno ao se cadastrar deve informar o curso e o período atual. O sistema já carrega automaticamente a carga horária exigida e o catálogo de atividades válidas para aquele curso. Com o usuário logado pela primeira vez, ele deve passar por uma etapa de confirmação do curso e período. O coordenador responsável pelo curso deve ser associado automaticamente. O coordenador deve ter um perfil diferente do aluno na hora do cadastro, já com acesso à fila de solicitações do seu curso assim que o login for concluído. A secretaria deve conseguir acessar a visão geral de todos os cursos, não apenas um, o que diferencia seu perfil dos demais.
 
-<b>ZZZZ</b> - O cliente...
- 
-<b>KKK</b> - O cliente...
  
 ---
  
