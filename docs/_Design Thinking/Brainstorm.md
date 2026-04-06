@@ -33,7 +33,7 @@ A equipe se reuniu para debater ideias gerais sobre o projeto via Notion onde ca
  
 ---
  
-### 2. Como será o processo para cadastrar um novo clientetorneio?
+### 2. Como será o processo para cadastrar um novo usuário?
  
 <p align = "justify">
 Julia — O cadastro deve ser vinculado ao e-mail institucional do Ibmec, garantindo que apenas alunos, coordenadores e funcionários da secretaria consigam acessar a plataforma. O aluno ao se cadastrar deve informar o curso e o período atual. O sistema já carrega automaticamente a carga horária exigida e o catálogo de atividades válidas para aquele curso. Com o usuário logado pela primeira vez, ele deve passar por uma etapa de confirmação do curso e período. O coordenador responsável pelo curso deve ser associado automaticamente. O coordenador deve ter um perfil diferente do aluno na hora do cadastro, já com acesso à fila de solicitações do seu curso assim que o login for concluído. A secretaria deve conseguir acessar a visão geral de todos os cursos, não apenas um, o que diferencia seu perfil dos demais.
@@ -54,15 +54,13 @@ Julia — O cadastro deve ser vinculado ao e-mail institucional do Ibmec, garant
  
 ---
  
-### 4. Outras perguntas pertinentes ao contexto
+### 4. Como o coordenador irá validar as atividades enviadas?
 
 <p align = "justify">
-<b>XXXX</b> - Com a localização...
- 
-<b>YYYY</b> - O cliente...
- 
-<b>ZZZ</b> - O cliente...
- 
+<b>Bernardo</b> - O coordenador deve ter uma fila de solicitações ordenada por data de envio, com o preview do certificado e os dados extraídos já visíveis na mesma tela, sem precisar baixar nada. A validação deve ter dois botões claros: aprovar e reprovar. Em caso de reprovação, é obrigatório informar o motivo, que será exibido diretamente para o aluno na plataforma. O sistema deve aplicar as regras do catálogo automaticamente antes da análise humana. Se o tipo de atividade já ultrapassou o teto de horas do aluno, o coordenador vê um alerta antes de aprovar. O coordenador deve poder editar as horas aprovadas caso o documento indique uma carga diferente da solicitada pelo aluno e essa edição deve ficar registrada no histórico. Deve ser possível filtrar a fila por curso, período e status, para que o coordenador consiga priorizar alunos formandos que estão com horas em aberto.
+</p>
+
+
 ---
  
 ### 5. "Outras perguntas pertinentes ao contexto", Como seria a forma de adicionar do cliente adicionar os produtos ?
