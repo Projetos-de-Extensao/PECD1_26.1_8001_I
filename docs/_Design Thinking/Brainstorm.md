@@ -20,7 +20,7 @@ A equipe se reuniu para debater ideias gerais sobre o projeto via Notion onde ca
 ## Perguntas
  
 ### 1. Qual o objetivo principal da aplicação?
- 
+
 <p align = "justify">
  
 <b>Leonardo</b> - Deve ser uma plataforma onde qualquer aluno possa adicionar e acompanhar suas horas de AAC de forma simples, sem depender de e-mail ou da secretaria para saber o status.
@@ -37,8 +37,9 @@ A equipe se reuniu para debater ideias gerais sobre o projeto via Notion onde ca
  
 <p align = "justify">
 Julia — O cadastro deve ser vinculado ao e-mail institucional do Ibmec, garantindo que apenas alunos, coordenadores e funcionários da secretaria consigam acessar a plataforma. O aluno ao se cadastrar deve informar o curso e o período atual. O sistema já carrega automaticamente a carga horária exigida e o catálogo de atividades válidas para aquele curso. Com o usuário logado pela primeira vez, ele deve passar por uma etapa de confirmação do curso e período. O coordenador responsável pelo curso deve ser associado automaticamente. O coordenador deve ter um perfil diferente do aluno na hora do cadastro, já com acesso à fila de solicitações do seu curso assim que o login for concluído. A secretaria deve conseguir acessar a visão geral de todos os cursos, não apenas um, o que diferencia seu perfil dos demais.
+</p>
 
- 
+
 ---
  
 ### 3. Como será o processo de envio de um certificado de atividade? 
@@ -50,7 +51,7 @@ Julia — O cadastro deve ser vinculado ao e-mail institucional do Ibmec, garant
 — Cada certificado deve ser associado a uma categoria do catálogo de atividades. O próprio sistema pode sugerir a categoria com base no conteúdo extraído, e o aluno confirma ou corrige.
 — O produto deve registrar a data e hora exata do envio para fins de auditoria, e o aluno deve receber uma confirmação imediata de que o certificado foi recebido.
 </p>
- 
+
  
 ---
  
@@ -76,35 +77,35 @@ Julia — O cadastro deve ser vinculado ao e-mail institucional do Ibmec, garant
 
 ---
  
-### 6. Quais informações seriam interessante para o cliente?
-<p align = "justify">
-   <b>XXX</b> - Informações...
-   
-   <b>ZZZZ</b> - O cliente usuário poderá acessar informações...
+### 6. Como seria o sistema de notificações e acompanhamento de status
 
-   <b>WWWWs</b> - O usuário poderá ver scouts de partidas do torneio, ver as regras dos torneios, locais e data das partidas.
-   
+<p align = "justify">
+<b>Pietro</b> - Toda mudança de status — envio recebido, em análise, aprovado, reprovado — deve gerar uma notificação automática para o aluno, sem que ele precise entrar na plataforma para descobrir.
+— As notificações devem ser enviadas por e-mail e também visíveis dentro da própria plataforma, para que o aluno tenha acesso mesmo que não cheque o e-mail.
+— A secretaria deve receber um relatório automático semanal com alunos em risco de não colação, ou seja, formandos com horas insuficientes no semestre atual.
+— O coordenador deve ser notificado quando houver solicitações pendentes há mais de 7 dias na fila, para evitar que certificados fiquem sem análise por longos períodos.
+— Toda ação na plataforma deve gerar um log de auditoria — quem fez, o quê, quando — acessível para a secretaria e a coordenação em caso de contestação.
 </p>
  
 ### Requisitos elicitados
  
 |ID|Descrição|
 |----|-------------|
-|BS01| O cliente...|
-|BS02| O cliente...|
-|BS03| O cliente...|
-|BS04| O cliente...|
-|BS05| O cliente...|
-|BS06| O cliente...|
-|BS07| O cliente...|
-|BS08| O cliente...|
-|BS09| O cliente...|
-|BS10| O produto...|
-|BS11| O produto...|
-|BS12| O produto...|
-|BS13| O produto...|
-|BS14| O produto...|
-|BS15| O produto...|
+|BS01| O sistema deve permitir que o aluno faça upload de certificados em formato PDF ou imagem|
+|BS02| O sistema deve extrair automaticamente os dados do certificado (carga horária, instituição, data) via OCR|
+|BS03| O sistema deve pré-preencher o formulário de solicitação com os dados extraídos, permitindo edição pelo aluno.|
+|BS04| O sistema deve validar se o documento possui carga horária e data legíveis antes de enviar para análise.|
+|BS05| O sistema deve associar o certificado a uma categoria do catálogo e sugerir a categoria automaticamente.|
+|BS06| O aluno deve visualizar um dashboard com horas aprovadas, em análise e faltantes em relação à meta do curso.|
+|BS07| O aluno deve acessar o histórico completo de solicitações com status e motivo de reprovação quando aplicável.|
+|BS08| O aluno deve ser notificado por e-mail e pela plataforma a cada mudança de status de suas solicitações.|
+|BS09| O aluno deve receber alerta automático ao atingir menos de 20% da carga exigida no penúltimo semestre.|
+|BS10| O coordenador deve acessar uma fila de solicitações com preview do certificado e dados extraídos na mesma tela.|
+|BS11| O coordenador deve poder aprovar ou reprovar uma solicitação, sendo o motivo obrigatório em caso de reprovação.|
+|BS12| O coordenador deve poder editar as horas aprovadas quando divergirem do documento, com registro em log.|
+|BS13| O sistema deve alertar o coordenador quando o tipo de atividade ultrapassar o teto de horas do aluno.|
+|BS14| A secretaria deve acessar relatório de alunos formandos com horas insuficientes no semestre vigente.|
+|BS15| Todas as ações na plataforma devem gerar log de auditoria com usuário, ação e timestamp.|
  
 ## Conclusão
 <p align = "justify">
@@ -118,4 +119,4 @@ Através da aplicação da técnica, foi possível elicitar alguns dos primeiros
 ## Autor(es)
 | Data | Versão | Descrição | Autor(es) |
 | -- | -- | -- | -- |
-| DD/MM/YYYY | 1.0 | Criação do documento | XXX XXXX, XXXX XXXX, YYY YYYY e ZZZ XXXX |
+| 05/04/2026 | 1.0 | Atualização do documento | Matheus , Julia, Carlos, Bernardo, Leonardo e Pietro |
