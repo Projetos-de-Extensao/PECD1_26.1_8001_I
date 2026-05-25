@@ -495,7 +495,15 @@ tbody td {
  
 /* ── NOTIFICATIONS ───────────────────────────────────────── */
  
-.notif-list { display: flex; flex-direction: column; gap: 0; }
+.notif-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 16px;
+}
  
 .notif-item {
   padding: 16px 20px;
