@@ -11,13 +11,13 @@ function App() {
   
   return (
     <>
-      {/*<Login />*
+      {/*<Login />
       <Coordenador />
-      <Secretaria />
+      <Secretaria />  
       <Index />
-      <Historico />*/
+      <Historico />
       <Notificacoes />
-    /*  <Header />}*/}
+      <Header />}*/}
     </>
   )
 }
