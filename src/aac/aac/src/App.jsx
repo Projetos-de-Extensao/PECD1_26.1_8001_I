@@ -5,6 +5,7 @@ import Secretaria from './components/Secretaria'
 import Index from './components/Index'
 import Historico from './components/Historico'
 import Notificacoes from './components/Notificacoes'
+import Sidebar from './components/Sidebar'
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
       <Secretaria />
       <Index />
       <Historico />*/}
+      <Sidebar />
       <Notificacoes />
     </>
   )
