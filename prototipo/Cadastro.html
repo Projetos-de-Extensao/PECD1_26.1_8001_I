@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIA Ibmec — Cadastro</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+<div class="portal">
+
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <span class="ibmec-dot"></span>
+      <span class="ibmec-name">ibmec</span>
+    </div>
+    <div class="sidebar-nav">
+      <a href="#" class="sidebar-item">Minhas Disciplinas <span class="arrow">›</span></a>
+      <a href="#" class="sidebar-item">Acadêmico <span class="arrow">›</span></a>
+      <a href="#" class="sidebar-item">E-mail de Estudante <span class="arrow">›</span></a>
+      <a href="#" class="sidebar-item">Financeiro <span class="arrow">›</span></a>
+      <a href="#" class="sidebar-item">Atendimento <span class="arrow">›</span></a>
+      <a href="index.html" class="sidebar-item active">Atividades Complementares <span class="arrow">›</span></a>
+      <a href="#" class="sidebar-item">Avaliação Institucional <span class="arrow">›</span></a>
+      <a href="#" class="sidebar-item">Bibliotecas Virtuais <span class="arrow">›</span></a>
+    </div>
+  </nav>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="ibmec-dot"></span>
+        <span class="ibmec-name">ibmec</span>
+      </div>
+      <div class="topbar-right">
+        <a href="notificacoes.html" class="notif-link"><span>🔔</span> Notificações</a>
+        <div class="user-info">
+          <div class="name">Novo usuário</div>
+          <div class="mat">Crie sua conta abaixo</div>
+        </div>
+        <div class="avatar" style="background:#94a3b8;">?</div>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs-bar">
+      <a href="index.html"        class="tab-link"><span class="tab-icon">📊</span> Painel</a>
+      <a href="enviar.html"       class="tab-link"><span class="tab-icon">📎</span> Enviar Certificado</a>
+      <a href="historico.html"    class="tab-link"><span class="tab-icon">📋</span> Histórico</a>
+      <a href="notificacoes.html" class="tab-link"><span class="tab-icon">🔔</span> Notificações</a>
+      <a href="coordenador.html"  class="tab-link"><span class="tab-icon">✅</span> Coordenador</a>
+      <a href="secretaria.html"   class="tab-link"><span class="tab-icon">🏫</span> Secretaria</a>
+      <a href="cadastro.html"     class="tab-link active"><span class="tab-icon">✏️</span> Cadastro</a>
+    </nav>
+
+    <!-- Content -->
+    <div class="content">
+
+      <h1 class="page-title">Criar conta no SIA</h1>
+      <p class="page-sub">Preencha os dados abaixo para solicitar acesso ao sistema de Atividades Complementares.</p>
+
+      <!-- Indicador de etapas -->
+      <div class="steps-indicator">
+        <div class="step-item done">
+          <div class="step-num">✓</div>
+          Dados Pessoais
+        </div>
+        <div class="step-item active">
+          <div class="step-num">2</div>
+          Dados Institucionais
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          Perfil de Acesso
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          Senha
+        </div>
+      </div>
+
+      <!-- Layout dois painéis -->
+      <div class="cadastro-layout">
+
+        <!-- Formulário principal -->
+        <div class="form-card">
+          <div class="form-card-head">
+            <h2>Informações de Cadastro</h2>
+            <p>Todos os campos marcados com * são obrigatórios</p>
+          </div>
+          <div class="form-card-body">
+
+            <!-- Dados pessoais -->
+            <p class="form-section-title">Dados Pessoais</p>
+
+            <div class="form-group">
+              <label class="form-label">Nome completo *</label>
+              <input type="text" class="form-control" placeholder="Ex.: Maria Eduarda Silva">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">CPF *</label>
+                <input type="text" class="form-control" placeholder="000.000.000-00">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Data de nascimento *</label>
+                <input type="date" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Telefone</label>
+              <input type="text" class="form-control" placeholder="(21) 99999-0000">
+            </div>
+
+            <!-- Dados institucionais -->
+            <p class="form-section-title">Dados Institucionais</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Matrícula *</label>
+                <input type="text" class="form-control" placeholder="Ex.: 202508560348">
+              </div>
+              <div class="form-group">
+                <label class="form-label">E-mail institucional *</label>
+                <input type="email" class="form-control" placeholder="nome@al.ibmec.edu.br">
+              </div>
+            </div>
+            <div class="hint-box">
+              ℹ️ Use o e-mail fornecido pelo Ibmec. Contas pessoais (@gmail, @outlook) não são aceitas.
+            </div>
+
+            <div class="form-row" style="margin-top:14px;">
+              <div class="form-group">
+                <label class="form-label">Curso *</label>
+                <select class="form-control">
+                  <option value="">Selecione...</option>
+                  <option>Ciência de Dados</option>
+                  <option>Engenharia de Software</option>
+                  <option>Administração</option>
+                  <option>Direito</option>
+                  <option>Economia</option>
+                  <option>Engenharia de Produção</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Período *</label>
+                <select class="form-control">
+                  <option value="">Selecione...</option>
+                  <option>1º período</option>
+                  <option>2º período</option>
+                  <option>3º período</option>
+                  <option>4º período</option>
+                  <option>5º período</option>
+                  <option>6º período</option>
+                  <option>7º período</option>
+                  <option>8º período</option>
+                  <option>9º período</option>
+                  <option>10º período</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Perfil de acesso -->
+            <p class="form-section-title">Perfil de Acesso *</p>
+
+            <div class="perfil-grid">
+              <div class="perfil-option selected">
+                <div class="p-icon">🎓</div>
+                <div class="p-name">Aluno</div>
+                <div class="p-desc">Envio e acompanhamento de horas</div>
+              </div>
+              <div class="perfil-option">
+                <div class="p-icon">✅</div>
+                <div class="p-name">Coordenador</div>
+                <div class="p-desc">Validação de atividades</div>
+              </div>
+              <div class="perfil-option">
+                <div class="p-icon">🏫</div>
+                <div class="p-name">Secretaria</div>
+                <div class="p-desc">Gestão e relatórios</div>
+              </div>
+            </div>
+
+            <div class="hint-box warn">
+              ⚠️ Perfis de Coordenador e Secretaria requerem aprovação da administração antes de liberar o acesso.
+            </div>
+
+            <!-- Senha -->
+            <p class="form-section-title">Senha de Acesso</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Senha *</label>
+                <input type="password" class="form-control" placeholder="Mínimo 8 caracteres" value="Ibmec@2026">
+                <div class="forca-bar">
+                  <div class="forca-seg on-green"></div>
+                  <div class="forca-seg on-green"></div>
+                  <div class="forca-seg on-green"></div>
+                  <div class="forca-seg"></div>
+                </div>
+                <div class="forca-label forte">Senha forte</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirmar senha *</label>
+                <input type="password" class="form-control" placeholder="Repita a senha" value="Ibmec@2026">
+              </div>
+            </div>
+
+            <!-- Termos -->
+            <p class="form-section-title">Termos e Preferências</p>
+
+            <div class="check-row">
+              <input type="checkbox" id="termos" checked>
+              <label for="termos">
+                Li e aceito os <a href="#">Termos de Uso</a> e a
+                <a href="#">Política de Privacidade</a> do SIA Ibmec.
+              </label>
+            </div>
+
+            <div class="check-row">
+              <input type="checkbox" id="notif" checked>
+              <label for="notif">
+                Quero receber notificações por e-mail sobre o status das minhas atividades complementares.
+              </label>
+            </div>
+
+            <!-- Botão -->
+            <a href="index.html" class="btn-cadastro">Criar conta</a>
+
+            <p class="login-note">
+              Já tem uma conta? <a href="login.html">Entrar no SIA</a>
+            </p>
+
+          </div>
+        </div>
+
+        <!-- Painel lateral de info -->
+        <div>
+          <div class="side-card">
+            <div class="side-card-head">
+              <h3>Perfis disponíveis</h3>
+              <p>Escolha o perfil de acordo com sua função</p>
+            </div>
+            <div class="side-card-body">
+              <div class="side-role">
+                <div class="side-role-icon orange">🎓</div>
+                <div>
+                  <div class="side-role-name">Aluno</div>
+                  <div class="side-role-desc">Envia certificados, acompanha horas e recebe notificações de status.</div>
+                  <span class="side-acesso-tag tag-livre">Acesso imediato</span>
+                </div>
+              </div>
+              <div class="side-role">
+                <div class="side-role-icon green">✅</div>
+                <div>
+                  <div class="side-role-name">Coordenador</div>
+                  <div class="side-role-desc">Aprova ou reprova atividades enviadas pelos alunos da turma.</div>
+                  <span class="side-acesso-tag tag-aprovacao">Requer aprovação</span>
+                </div>
+              </div>
+              <div class="side-role">
+                <div class="side-role-icon blue">🏫</div>
+                <div>
+                  <div class="side-role-name">Secretaria</div>
+                  <div class="side-role-desc">Monitora formandos em risco e gera relatórios institucionais.</div>
+                  <span class="side-acesso-tag tag-aprovacao">Requer aprovação</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Segundo card: dicas -->
+          <div class="side-card" style="margin-top:16px;">
+            <div class="side-card-head">
+              <h3>Requisitos da senha</h3>
+              <p>Para manter sua conta segura</p>
+            </div>
+            <div class="side-card-body" style="padding:12px 16px;">
+              <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--text);">
+                <div style="display:flex;align-items:center;gap:7px;">
+                  <span style="color:var(--green);font-weight:800;">✓</span> Mínimo 8 caracteres
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;">
+                  <span style="color:var(--green);font-weight:800;">✓</span> Pelo menos uma letra maiúscula
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;">
+                  <span style="color:var(--green);font-weight:800;">✓</span> Pelo menos um número
+                </div>
+                <div style="display:flex;align-items:center;gap:7px;">
+                  <span style="color:var(--green);font-weight:800;">✓</span> Pelo menos um caractere especial
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <footer>SIA Ibmec · Projeto em Ciência de Dados I — 2026.1 · Bernardo, Carlos, Julia, Leonardo, Matheus e Pietro</footer>
+  </div><!-- /main -->
+</div><!-- /portal -->
+</body>
+</html>
