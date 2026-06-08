@@ -16,8 +16,8 @@ function App() {
       <Secretaria />
       <Index />
       <Historico />*/
-     /* <Notificacoes />*/
-      <Header />}
+      <Notificacoes />
+    /*  <Header />}*/}
     </>
   )
 }
