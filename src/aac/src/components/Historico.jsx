@@ -79,9 +79,9 @@ function Historico() {
                     <a href="#" className="export-link">📊 Exportar relatório</a>
 
                 </div>
-
-                
+            </div>
+        </div>
     );
 }
 
-export default Historico
+export default Historico;
