@@ -215,3 +215,142 @@ title: Sprint Planning
 - Colheita dos pontos: [Mentimeter](https://www.mentimeter.com/)
 
 ---
+
+# Sprint IV 
+
+> 19/05/26 à 09/06/2026
+
+## Planejamento de Interação
+
+* *Presentes na reunião:* 
+
+|Nome|Papel|
+|----|-----|
+|Bernardo|Desenvolvedor|
+|Carlos|Desenvolvedor|
+|Julia|Desenvolvedora|
+|Leonardo|Desenvolvedor|
+|Matheus|Desenvolvedor|
+|Pietro|Desenvolvedor|
+
+### Lista de Tarefas da Interação
+
+|Tarefa|Responsabilidade|
+|---|----|
+| Integração do fluxo completo: Aluno → Coordenador → Secretaria | Todos |
+| Implementação do log de auditoria (BS15) | Leonardo |
+| Implementação dos alertas automáticos de horas insuficientes (BS09) | Matheus |
+| Testes internos de usabilidade nas telas desenvolvidas | Julia e Carlos |
+| Correção de bugs identificados nos testes | Bernardo e Pietro |
+| Atualização da documentação (GitHub Pages / MkDocs) | Julia |
+| Preparação da apresentação final do projeto | Todos |
+
+### Sprint Retrospective/Review Meeting
+
+#### Dúvidas da Interação
+
+- O sistema de log de auditoria deve ser visível para o aluno ou apenas para a secretaria/coordenação?
+- Como exportar o relatório de horas em PDF de forma que o Ibmec aceite?
+
+#### Riscos Encontrados
+
+- Prazo apertado para integração completa de todos os fluxos antes da entrega final.
+- Possível incompatibilidade entre as telas desenvolvidas individualmente por membros diferentes.
+
+#### Pontos Positivos
+
+- A integração dos três perfis de usuário (aluno, coordenador, secretaria) foi concluída.
+- O sistema de notificações por e-mail foi implementado com sucesso.
+
+![pontos positivos](../assets/Sprints/S4-positivos.png)
+
+#### Pontos Negativos
+
+- Alguns requisitos do Brainstorm (ex.: relatório exportável - BS14) não foram implementados por falta de tempo.
+- Testes com usuários externos ainda não realizados.
+
+![pontos negativos](../assets/Sprints/S4-negativos.png)
+
+#### O que podemos melhorar?
+
+- Ter mais foco nas reuniões para evitar o desperdício de tempo.
+- A equipe deve ter mais autonomia em relação à falta de membros.
+- Podemos utilizar uma ferramenta de timebox para maior efetividade nas reuniões, sugestão: [Timebox](https://timebox.cedrotech.com/)
+- Planejar melhor as dependências entre tarefas para evitar bloqueios na fase de integração.
+
+#### Ferramentas utilizadas
+
+- Reunião: [Hangouts](https://hangouts.google.com/)
+- Desenvolvimento: [VSCode](https://code.visualstudio.com/) e [GitHub](https://github.com/Projetos-de-Extensao/PECD1_26.1_8001_I)
+- Colheita dos pontos: [Mentimeter](https://www.mentimeter.com/)
+
+---
+
+# Sprint V 
+
+> 09/06/26 à 30/06/2026
+
+## Planejamento de Interação
+
+* *Presentes na reunião:* 
+
+|Nome|Papel|
+|----|-----|
+|Bernardo|Desenvolvedor|
+|Carlos|Desenvolvedor|
+|Julia|Desenvolvedora|
+|Leonardo|Desenvolvedor|
+|Matheus|Desenvolvedor|
+|Pietro|Desenvolvedor|
+
+### Lista de Tarefas da Interação
+
+|Tarefa|Responsabilidade|
+|---|----|
+| Testes finais e correção de bugs críticos | Todos |
+| Publicação da versão final do front-end | Carlos e Pietro |
+| Finalização e revisão de toda a documentação (GitHub Pages) | Julia e Leonardo |
+| [Tutorial de Uso final do Aplicativo](https://projetos-de-extensao.github.io/PECD1_26.1_8001_I/Transicao/) | Bernardo |
+| Elaboração e ensaio da apresentação final | Todos |
+| Entrega do projeto na disciplina PECD1 26.1 | Todos |
+
+### Sprint Retrospective/Review Meeting
+
+#### Dúvidas da Interação
+
+- O sistema está pronto para ser apresentado para a coordenação e secretaria do Ibmec como prova de conceito?
+- Quais melhorias futuras devem ser priorizadas caso o projeto tenha continuidade?
+
+#### Riscos Encontrados
+
+- Risco de instabilidade do ambiente de deploy na data da apresentação final.
+- Possível necessidade de ajustes de última hora com base no feedback do professor/orientador.
+
+#### Pontos Positivos
+
+- O projeto cobre os três perfis de usuário definidos nas Histórias de Usuário (US001, US002, US003).
+- A documentação no GitHub Pages está organizada e acessível publicamente.
+
+![pontos positivos](../assets/Sprints/S5-positivos.png)
+
+#### Pontos Negativos
+
+- Nem todos os requisitos do Brainstorm (BS01–BS15) foram implementados no escopo do semestre.
+- A ausência de um banco de dados real limita a demonstração de funcionalidades como o histórico de solicitações.
+
+![pontos negativos](../assets/Sprints/S5-negativos.png)
+
+#### O que podemos melhorar?
+
+- Ter mais foco nas reuniões para evitar o desperdício de tempo.
+- A equipe deve ter mais autonomia em relação à falta de membros.
+- Podemos utilizar uma ferramenta de timebox para maior efetividade nas reuniões, sugestão: [Timebox](https://timebox.cedrotech.com/)
+- Em projetos futuros, iniciar os testes com usuários reais mais cedo no ciclo de desenvolvimento.
+- Implementar as funcionalidades restantes (OCR, exportação de relatório PDF, integração com SIA do Ibmec) como backlog para continuidade.
+
+#### Ferramentas utilizadas
+
+- Reunião: [Hangouts](https://hangouts.google.com/)
+- Desenvolvimento: [VSCode](https://code.visualstudio.com/) e [GitHub](https://github.com/Projetos-de-Extensao/PECD1_26.1_8001_I)
+- Deploy/Documentação: [GitHub Pages](https://projetos-de-extensao.github.io/PECD1_26.1_8001_I/) com [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
+- Colheita dos pontos: [Mentimeter](https://www.mentimeter.com/)
