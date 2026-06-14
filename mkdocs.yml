@@ -106,17 +106,17 @@ theme:
         icon: material/toggle-switch-off
         name: Switch to system preference
 
-#nav: 
- # - Home: index.md
-  #- Disciplina:
-   #   -  Aulas: Disciplina/Aulas.md
-    #  -  Github: github.md
-     # -  Mkdocs: mkdocs.md
-      #-  CodeSpace: Codespace.md 
-  #- React: 
-   #   -  Introdução: React/01_Intro.md
-    #  -  Componentes: React/Componentes.md
-     # -  Hooks: React/Hooks.md
-      #-  Context API: React/ContextAPI.md
-      #-  React Router: React/ReactRouter.md
-      #-  Redux: React/Redux.md
+nav:
+  - Home: index.md
+  - Transição:
+      - Tutorial de Uso: Transicao/index.md
+  - Design Thinking:
+      - 5W2H: _Design Thinking/5w2h.md
+      - Brainstorm: _Design Thinking/Brainstorm.md
+      - Design Thinking: _Design Thinking/designthinking.md
+      - Histórias de Usuário: _Design Thinking/historiasdeusuario.md
+      - Mapa Mental: _Design Thinking/mapa_mental.md
+      - Pesquisa: _Design Thinking/pesquisa.md
+      - Protótipo de Baixa Fidelidade: _Design Thinking/prototipo_baixa_fidelidade.md
+  - Sprint Planning:
+      - Sprint: _Sprint Planning/sprint.md
