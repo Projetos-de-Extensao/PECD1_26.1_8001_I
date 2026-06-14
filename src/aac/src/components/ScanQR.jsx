@@ -69,7 +69,7 @@ function ScanQR() {
       <p className="page-sub">Escaneie o QR code do aluno para registrar ou verificar a presença.</p>
 
       {!scannerAtivo && !resultado && (
-        <div style={{ textAlign: 'center', padding: '40px 0' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '40px 0' }}>
           <div style={{ fontSize: 64, marginBottom: 16 }}>📷</div>
           <button className="btn-submit" style={{ width: 'auto', padding: '12px 32px' }} onClick={iniciarScanner}>
             Iniciar Scanner
