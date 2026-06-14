@@ -1,10 +1,6 @@
 function Historico() {
     return (
-        <div className="portal">
-
-            <div className="main">
-            
-                <div className="content">
+        <div className="content">
                     <h1 className="page-title">Histórico de Solicitações</h1>
 
                     <div className="filter-chips">
@@ -78,10 +74,8 @@ function Historico() {
 
                     <a href="#" className="export-link">📊 Exportar relatório</a>
 
-                </div>
-
-                
+        </div>
     );
 }
 
-export default Historico
+export default Historico;

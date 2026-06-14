@@ -1,11 +1,6 @@
 function Coordenador() {
     return (
-        <div className="portal">
- 
-  <div className="main">
-   
- 
-    <div className="content">
+        <div className="content">
  
       {/* Header */}
       <div className="fila-header">
@@ -98,10 +93,6 @@ function Coordenador() {
       </div>
  
     </div>
- 
-   
-  </div>
-</div>
 
     );
 }

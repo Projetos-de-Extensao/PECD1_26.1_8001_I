@@ -1,4 +1,14 @@
-function Sidebar() {
+function Sidebar({ currentPage, navigate }) {
+  const items = [
+    { key: 'index', label: 'Atividades Complementares' },
+    { key: 'historico', label: 'Histórico' },
+    { key: 'notificacoes', label: 'Notificações' },
+    { key: 'qr-presenca', label: 'Registrar Presença (QR)' },
+    { key: 'scan-qr', label: 'Verificar QR (Coord.)' },
+    { key: 'coordenador', label: 'Fila de Validação' },
+    { key: 'secretaria', label: 'Painel da Secretaria' },
+  ];
+
   return (
     <nav className="sidebar">
       <div className="sidebar-brand">
@@ -6,16 +16,19 @@ function Sidebar() {
         <span className="ibmec-name">ibmec</span>
       </div>
       <div className="sidebar-nav">
-        <a href="#" className="sidebar-item">Minhas Disciplinas <span className="arrow">›</span></a>
-        <a href="#" className="sidebar-item">Acadêmico <span className="arrow">›</span></a>
-        <a href="#" className="sidebar-item">E-mail de Estudante <span className="arrow">›</span></a>
-        <a href="#" className="sidebar-item">Financeiro <span className="arrow">›</span></a>
-        <a href="#" className="sidebar-item">Atendimento <span className="arrow">›</span></a>
-        <a href="index.html" className="sidebar-item active">Atividades Complementares <span className="arrow">›</span></a>
-        <a href="#" className="sidebar-item">Avaliação Institucional <span className="arrow">›</span></a>
-        <a href="#" className="sidebar-item">Bibliotecas Virtuais <span className="arrow">›</span></a>
+        {items.map((item) => (
+          <button
+            key={item.key}
+            className={`sidebar-item${currentPage === item.key ? ' active' : ''}`}
+            onClick={() => navigate(item.key)}
+            style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', font: 'inherit', cursor: 'pointer' }}
+          >
+            {item.label} <span className="arrow">›</span>
+          </button>
+        ))}
       </div>
     </nav>
   );
 }
+
 export default Sidebar;
