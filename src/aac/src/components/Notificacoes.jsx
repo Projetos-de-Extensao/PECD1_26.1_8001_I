@@ -1,10 +1,6 @@
 function Notificacoes() {
     return (
-        <div className="portal">
-
-            <div className="main">
-
-                <div className="content">
+        <div className="content">
                     <h1 className="page-title">Notificações</h1>
 
                     <div className="notif-list">
@@ -34,9 +30,6 @@ function Notificacoes() {
                         </div>
 
                     </div>
-                </div>
-
-            </div>
         </div>
 
     );
