@@ -1,13 +1,24 @@
-function Sidebar({ currentPage, navigate }) {
-  const items = [
+const ITEMS_POR_PERFIL = {
+  aluno: [
     { key: 'index', label: 'Atividades Complementares' },
     { key: 'historico', label: 'Histórico' },
     { key: 'notificacoes', label: 'Notificações' },
-    { key: 'qr-presenca', label: 'Registrar Presença (QR)' },
-    { key: 'scan-qr', label: 'Verificar QR (Coord.)' },
+    { key: 'scan-qr', label: 'Registrar Presença (QR)' },
+  ],
+  coordenador: [
     { key: 'coordenador', label: 'Fila de Validação' },
+    { key: 'qr-presenca', label: 'Verificar Presença (QR)' },
+    { key: 'notificacoes', label: 'Notificações' },
+  ],
+  secretaria: [
     { key: 'secretaria', label: 'Painel da Secretaria' },
-  ];
+    { key: 'qr-presenca', label: 'Verificar Presença (QR)' },
+    { key: 'notificacoes', label: 'Notificações' },
+  ],
+};
+
+function Sidebar({ currentPage, navigate, perfil }) {
+  const items = ITEMS_POR_PERFIL[perfil] || ITEMS_POR_PERFIL.aluno;
 
   return (
     <nav className="sidebar">
@@ -21,7 +32,10 @@ function Sidebar({ currentPage, navigate }) {
             key={item.key}
             className={`sidebar-item${currentPage === item.key ? ' active' : ''}`}
             onClick={() => navigate(item.key)}
-            style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', font: 'inherit', cursor: 'pointer' }}
+            style={{
+              width: '100%', textAlign: 'left', background: 'none',
+              border: 'none', font: 'inherit', cursor: 'pointer',
+            }}
           >
             {item.label} <span className="arrow">›</span>
           </button>

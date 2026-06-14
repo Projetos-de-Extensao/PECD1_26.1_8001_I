@@ -1,13 +1,36 @@
-function Header({ currentPage, navigate }) {
-  const tabs = [
+const TABS_POR_PERFIL = {
+  aluno: [
     { key: 'index', icon: '📊', label: 'Painel' },
     { key: 'historico', icon: '📋', label: 'Histórico' },
     { key: 'notificacoes', icon: '🔔', label: 'Notificações' },
-    { key: 'qr-presenca', icon: '📷', label: 'Presença QR' },
-    { key: 'scan-qr', icon: '✅', label: 'Verificar QR' },
-    { key: 'coordenador', icon: '📝', label: 'Coordenador' },
-    { key: 'secretaria', icon: '🏫', label: 'Secretaria' },
-  ];
+    { key: 'scan-qr', icon: '✅', label: 'Registrar Presença QR' },
+  ],
+  coordenador: [
+    { key: 'coordenador', icon: '📝', label: 'Fila de Validação' },
+    { key: 'qr-presenca', icon: '📷', label: 'Verificar Presença QR' },
+    { key: 'notificacoes', icon: '🔔', label: 'Notificações' },
+  ],
+  secretaria: [
+    { key: 'secretaria', icon: '🏫', label: 'Painel' },
+    { key: 'qr-presenca', icon: '📷', label: 'Verificar Presença QR' },
+    { key: 'notificacoes', icon: '🔔', label: 'Notificações' },
+  ],
+};
+
+const NOME_PERFIL = {
+  aluno: 'Leonardo',
+  coordenador: 'Prof. Carlos',
+  secretaria: 'Secretaria',
+};
+
+const AVATAR_PERFIL = {
+  aluno: 'L',
+  coordenador: 'C',
+  secretaria: 'S',
+};
+
+function Header({ currentPage, navigate, perfil, onLogout }) {
+  const tabs = TABS_POR_PERFIL[perfil] || TABS_POR_PERFIL.aluno;
 
   return (
     <>
@@ -25,10 +48,20 @@ function Header({ currentPage, navigate }) {
             <span>🔔</span> Notificações
           </button>
           <div className="user-info">
-            <div className="name">Olá, <strong>Leonardo</strong></div>
-            <div className="mat">Matrícula: 202508560348</div>
+            <div className="name">Olá, <strong>{NOME_PERFIL[perfil]}</strong></div>
+            <div className="mat">{perfil.charAt(0).toUpperCase() + perfil.slice(1)}</div>
           </div>
-          <div className="avatar">L</div>
+          <div className="avatar">{AVATAR_PERFIL[perfil]}</div>
+          <button
+            onClick={onLogout}
+            style={{
+              background: 'none', border: '1px solid var(--border)', borderRadius: 6,
+              padding: '4px 10px', fontSize: 12, fontWeight: 700, color: 'var(--muted)',
+              cursor: 'pointer', fontFamily: 'Nunito, sans-serif',
+            }}
+          >
+            Sair
+          </button>
         </div>
       </header>
 

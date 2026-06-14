@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { getAtividades, addPresenca, findPresenca } from '../db';
+import { getAtividades, addPresenca, getPresencas } from '../db';
 
 function QRPresenca() {
   const [atividades, setAtividades] = useState([]);
-  const [form, setForm] = useState({ nome: '', matricula: '', atividadeId: '' });
+  const [form, setForm] = useState({ nome: '', atividadeId: '' });
   const [presenca, setPresenca] = useState(null);
   const [erro, setErro] = useState('');
 
@@ -20,12 +20,14 @@ function QRPresenca() {
     e.preventDefault();
     setErro('');
 
-    if (!form.nome.trim() || !form.matricula.trim() || !form.atividadeId) {
+    if (!form.nome.trim() || !form.atividadeId) {
       setErro('Preencha todos os campos.');
       return;
     }
 
-    const existing = findPresenca(form.matricula.trim(), form.atividadeId);
+    const existing = getPresencas().find(
+      (p) => p.nome.toLowerCase() === form.nome.trim().toLowerCase() && p.atividadeId === form.atividadeId
+    );
     if (existing) {
       setPresenca(existing);
       return;
@@ -33,7 +35,7 @@ function QRPresenca() {
 
     const nova = addPresenca({
       nome: form.nome.trim(),
-      matricula: form.matricula.trim(),
+      matricula: '',
       atividadeId: form.atividadeId,
     });
     setPresenca(nova);
@@ -69,7 +71,7 @@ function QRPresenca() {
         <button
           className="btn-submit"
           style={{ background: 'var(--navy)' }}
-          onClick={() => { setPresenca(null); setForm({ nome: '', matricula: '', atividadeId: atividades[0]?.id || '' }); }}
+          onClick={() => { setPresenca(null); setForm({ nome: '', atividadeId: atividades[0]?.id || '' }); }}
         >
           Registrar outra presença
         </button>
@@ -79,7 +81,7 @@ function QRPresenca() {
 
   return (
     <div className="content" style={{ maxWidth: 480, margin: '0 auto' }}>
-      <h1 className="page-title">Registrar Presença</h1>
+      <h1 className="page-title">Verificar Presença</h1>
       <p className="page-sub">Preencha seus dados para gerar o QR code de presença na atividade.</p>
 
       <form onSubmit={handleSubmit}>
@@ -97,11 +99,6 @@ function QRPresenca() {
         <div className="form-group">
           <label className="form-label">Nome completo</label>
           <input className="form-control" value={form.nome} onChange={set('nome')} required placeholder="Ex: João da Silva" />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Matrícula</label>
-          <input className="form-control" value={form.matricula} onChange={set('matricula')} required placeholder="Ex: 2023001234" />
         </div>
 
         {erro && (

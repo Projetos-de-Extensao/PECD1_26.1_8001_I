@@ -23,21 +23,27 @@ const PAGES = {
 
 function App() {
   const [currentPage, setCurrentPage] = useState('login');
+  const [perfil, setPerfil] = useState(null);
+
+  const handleLogin = (perfilSelecionado, paginaDestino) => {
+    setPerfil(perfilSelecionado);
+    setCurrentPage(paginaDestino);
+  };
 
   const navigate = (page) => setCurrentPage(page);
 
-  if (currentPage === 'login') {
-    return <Login navigate={navigate} />;
+  if (!perfil) {
+    return <Login onLogin={handleLogin} />;
   }
 
   const PageComponent = PAGES[currentPage] || Index;
 
   return (
     <div className="portal">
-      <Sidebar currentPage={currentPage} navigate={navigate} />
+      <Sidebar currentPage={currentPage} navigate={navigate} perfil={perfil} />
       <div className="main">
-        <Header currentPage={currentPage} navigate={navigate} />
-        <PageComponent navigate={navigate} />
+        <Header currentPage={currentPage} navigate={navigate} perfil={perfil} onLogout={() => setPerfil(null)} />
+        <PageComponent navigate={navigate} perfil={perfil} />
       </div>
     </div>
   );

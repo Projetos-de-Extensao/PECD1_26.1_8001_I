@@ -65,7 +65,7 @@ function ScanQR() {
 
   return (
     <div className="content" style={{ maxWidth: 520, margin: '0 auto' }}>
-      <h1 className="page-title">Verificar Presença (QR)</h1>
+      <h1 className="page-title">Registrar Presença (QR)</h1>
       <p className="page-sub">Escaneie o QR code do aluno para registrar ou verificar a presença.</p>
 
       {!scannerAtivo && !resultado && (
