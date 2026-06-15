@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAtividades, addAtividade, getPresencas } from '../db';
+import { getAtividades, addAtividade, getPresencas, getAlunosEmRisco, getSolicitacoes } from '../db';
 
 const TIPO_LABEL = { interna: 'Interna', externa: 'Externa' };
 const TIPO_COLOR = { interna: 'badge-green', externa: 'badge-amber' };
@@ -146,11 +146,18 @@ function AtividadeCard({ atividade, presencas }) {
 function Secretaria() {
   const [atividades, setAtividades] = useState([]);
   const [presencas, setPresencas] = useState([]);
+  const [alunosRisco, setAlunosRisco] = useState([]);
+  const [totalAlunos, setTotalAlunos] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setAtividades(getAtividades());
     setPresencas(getPresencas());
+    const risco = getAlunosEmRisco();
+    setAlunosRisco(risco);
+    const solicitacoes = getSolicitacoes();
+    const matriculasUnicas = new Set(solicitacoes.map((s) => s.matricula));
+    setTotalAlunos(matriculasUnicas.size);
   }, []);
 
   const handleSave = (form) => {
@@ -176,22 +183,51 @@ function Secretaria() {
 
       <div className="sec-stat-row">
         <div className="sec-stat navy">
-          <div className="val">{atividades.length}</div>
-          <div className="lbl">Atividades cadastradas</div>
+          <div className="val">{totalAlunos}</div>
+          <div className="lbl">Alunos ativos</div>
+        </div>
+        <div className="sec-stat red">
+          <div className="val">{alunosRisco.length}</div>
+          <div className="lbl">Formandos em risco</div>
         </div>
         <div className="sec-stat navy">
-          <div className="val">{totalInscritos}</div>
-          <div className="lbl">Inscrições totais</div>
+          <div className="val">{atividades.length}</div>
+          <div className="lbl">Atividades cadastradas</div>
         </div>
         <div className="sec-stat" style={{ borderColor: 'var(--green)', background: 'var(--green-bg)' }}>
           <div className="val" style={{ color: 'var(--green)' }}>{totalVerificados}</div>
           <div className="lbl" style={{ color: 'var(--green-text)' }}>Presenças verificadas</div>
         </div>
-        <div className="sec-stat red">
-          <div className="val">{totalInscritos - totalVerificados}</div>
-          <div className="lbl">Pendentes de verificação</div>
-        </div>
       </div>
+
+      {alunosRisco.length > 0 && (
+        <>
+          <div className="warning-box">⚠ Formandos com horas insuficientes — 2026.1</div>
+          <div className="table-wrap" style={{ marginBottom: 28 }}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Aluno</th>
+                  <th>Curso</th>
+                  <th>Cumprido</th>
+                  <th>Faltam</th>
+                </tr>
+              </thead>
+              <tbody>
+                {alunosRisco.map((a) => (
+                  <tr key={a.id}>
+                    <td><strong>{a.nome}</strong></td>
+                    <td>{a.curso} · {a.periodo}</td>
+                    <td>{a.cumprido}/{a.total}h</td>
+                    <td><span className="faltam-red">{a.total - a.cumprido}h</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <a href="#" className="export-link" style={{ marginBottom: 24, display: 'inline-flex' }}>📊 Exportar relatório semanal</a>
+        </>
+      )}
 
       <h2 style={{ fontSize: 15, fontWeight: 800, color: 'var(--navy)', marginBottom: 12 }}>
         Atividades — clique para ver detalhes e presenças

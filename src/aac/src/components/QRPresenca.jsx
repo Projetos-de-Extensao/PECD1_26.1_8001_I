@@ -4,7 +4,7 @@ import { getAtividades, addPresenca, getPresencas } from '../db';
 
 function QRPresenca() {
   const [atividades, setAtividades] = useState([]);
-  const [form, setForm] = useState({ nome: '', atividadeId: '' });
+  const [form, setForm] = useState({ nome: '', local: '', atividadeId: '' });
   const [presenca, setPresenca] = useState(null);
   const [erro, setErro] = useState('');
 
@@ -35,6 +35,7 @@ function QRPresenca() {
 
     const nova = addPresenca({
       nome: form.nome.trim(),
+      local: form.local.trim(),
       matricula: '',
       atividadeId: form.atividadeId,
     });
@@ -71,7 +72,7 @@ function QRPresenca() {
         <button
           className="btn-submit"
           style={{ background: 'var(--navy)' }}
-          onClick={() => { setPresenca(null); setForm({ nome: '', atividadeId: atividades[0]?.id || '' }); }}
+          onClick={() => { setPresenca(null); setForm({ nome: '', local: '', atividadeId: atividades[0]?.id || '' }); }}
         >
           Registrar outra presença
         </button>
@@ -99,6 +100,11 @@ function QRPresenca() {
         <div className="form-group">
           <label className="form-label">Nome completo</label>
           <input className="form-control" value={form.nome} onChange={set('nome')} required placeholder="Ex: João da Silva" />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Local da atividade</label>
+          <input className="form-control" value={form.local} onChange={set('local')} placeholder="Ex: Auditório A, Online, Sala 210" />
         </div>
 
         {erro && (

@@ -1,39 +1,40 @@
-function Notificacoes() {
-    return (
-        <div className="content">
-                    <h1 className="page-title">Notificações</h1>
+import { useState, useEffect } from 'react';
+import { getNotificacoes } from '../db';
 
-                    <div className="notif-list">
+const TITULO_PERFIL = {
+  aluno:       'Suas Notificações',
+  coordenador: 'Notificações — Coordenação',
+  secretaria:  'Notificações — Secretaria',
+};
 
-                        <div className="notif-item green">
-                            <div className="notif-title">✅ Atividade aprovada</div>
-                            <div className="notif-body">"Monitoria Cálculo II" foi aprovada pelo coordenador.</div>
-                            <div className="notif-time">Há 2 horas</div>
-                        </div>
+function Notificacoes({ perfil = 'aluno' }) {
+  const [notificacoes, setNotificacoes] = useState([]);
 
-                        <div className="notif-item red">
-                            <div className="notif-title">✕ Atividade reprovada</div>
-                            <div className="notif-body">"Palestra IA Summit" não foi aceita. Motivo: sem carga horária.</div>
-                            <div className="notif-time">Há 1 dia</div>
-                        </div>
+  useEffect(() => {
+    setNotificacoes(getNotificacoes(perfil));
+  }, [perfil]);
 
-                        <div className="notif-item amber">
-                            <div className="notif-title">⚠ Alerta de horas</div>
-                            <div className="notif-body">Você está com menos de 20% da carga no penúltimo semestre!</div>
-                            <div className="notif-time">Há 3 dias</div>
-                        </div>
+  return (
+    <div className="content">
+      <h1 className="page-title">{TITULO_PERFIL[perfil]}</h1>
+      <p className="page-sub">{notificacoes.length} notificações recentes.</p>
 
-                        <div className="notif-item blue">
-                            <div className="notif-title">📎 Certificado recebido</div>
-                            <div className="notif-body">"Curso Python FGV" foi recebido e está em análise.</div>
-                            <div className="notif-time">Há 4 dias</div>
-                        </div>
-
-                    </div>
-        </div>
-
-    );
-
+      <div className="notif-list">
+        {notificacoes.map((n) => (
+          <div key={n.id} className={`notif-item ${n.tipo}`}>
+            <div className="notif-title">{n.titulo}</div>
+            <div className="notif-body">{n.corpo}</div>
+            <div className="notif-time">{n.tempo}</div>
+          </div>
+        ))}
+        {notificacoes.length === 0 && (
+          <div className="notif-item" style={{ color: 'var(--muted)', fontStyle: 'italic' }}>
+            Nenhuma notificação.
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Notificacoes;

@@ -1,100 +1,102 @@
+import { useState, useEffect } from 'react';
+import { getSolicitacoesPendentes, atualizarSolicitacao } from '../db';
+
+function CardSolicitacao({ sol, onAprovar, onReprovar }) {
+  const [aberto, setAberto] = useState(false);
+
+  return (
+    <div className="subm-card">
+      <div className="subm-card-head" onClick={() => setAberto((o) => !o)} style={{ cursor: 'pointer' }}>
+        <div>
+          <div className="subm-student-name">{sol.alunoNome}</div>
+          <div className="subm-student-sub">
+            {sol.curso} · {sol.periodo} período · {sol.horas}h · {new Date(sol.data).toLocaleDateString('pt-BR')}
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          {sol.formando && <span className="badge-formando">⚠ Formando</span>}
+          <span className="badge badge-amber">Pendente</span>
+          <span style={{ color: 'var(--muted)', fontSize: 16 }}>{aberto ? '▲' : '▼'}</span>
+        </div>
+      </div>
+
+      {aberto && (
+        <>
+          <div className="doc-row">
+            <span>📄 {sol.arquivo}</span>
+            <a href="#">Visualizar</a>
+          </div>
+
+          <div className="subm-meta">
+            <div className="meta-item">Atividade<strong>{sol.atividade}</strong></div>
+            <div className="meta-item">Local<strong>{sol.local || '—'}</strong></div>
+            <div className="meta-item">Horas<strong>{sol.horas}h</strong></div>
+            <div className="meta-item">Categoria<strong>{sol.categoria}</strong></div>
+          </div>
+          <div style={{ textAlign: 'center', padding: '6px 16px 10px', fontSize: 12, color: 'var(--muted)' }}>
+            Enviado<strong style={{ display: 'block', fontSize: 13, color: 'var(--text)' }}>{new Date(sol.data).toLocaleDateString('pt-BR')}</strong>
+          </div>
+
+          {sol.aviso && (
+            <div className="warn-banner">⚠ {sol.aviso}</div>
+          )}
+
+          <div className="subm-actions">
+            <button className="btn-approve" onClick={() => onAprovar(sol.id)}>✓ Aprovar</button>
+            <button className="btn-reject"  onClick={() => onReprovar(sol.id)}>✗ Reprovar</button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function Coordenador() {
-    return (
-        <div className="content">
- 
-      {/* Header */}
+  const [pendentes, setPendentes] = useState([]);
+
+  useEffect(() => {
+    setPendentes(getSolicitacoesPendentes());
+  }, []);
+
+  const handleAprovar = (id) => {
+    atualizarSolicitacao(id, 'aprovado');
+    setPendentes((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  const handleReprovar = (id) => {
+    atualizarSolicitacao(id, 'reprovado');
+    setPendentes((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  return (
+    <div className="content">
       <div className="fila-header">
         <h1 className="page-title">Fila de Validação</h1>
-        <span className="badge-count">⚠ 12 pendentes</span>
+        {pendentes.length > 0 && (
+          <span className="badge-count">⚠ {pendentes.length} pendente{pendentes.length > 1 ? 's' : ''}</span>
+        )}
       </div>
- 
-      {/* Filters */}
+
       <div className="filter-chips">
         <span className="chip chip-active">Todos</span>
         <span className="chip chip-inactive">Formandos</span>
         <span className="chip chip-inactive">Pendentes &gt;7d</span>
       </div>
- 
-      {/* Card 1: expandido com ações */}
-      <div className="subm-card">
-        <div className="subm-card-head">
-          <div>
-            <div className="subm-student-name">Maria Oliveira</div>
-            <div className="subm-student-sub">Ciência de Dados · 7º período</div>
-          </div>
-          <span className="badge-formando">⚠ Formando</span>
-        </div>
- 
-        <div className="doc-row">
-          <span>📄 certificado_python_fgv.pdf</span>
-          <a href="#">Visualizar</a>
-        </div>
- 
-        <div className="subm-meta">
-          <div className="meta-item">
-            Atividade
-            <strong>Curso Python</strong>
-          </div>
-          <div className="meta-item">
-            Horas
-            <strong>30h</strong>
-          </div>
-          <div className="meta-item">
-            Categoria
-            <strong>Curso livre</strong>
-          </div>
-          <div className="meta-item">
-            Enviado
-            <strong>02/04/2026</strong>
-          </div>
-        </div>
- 
-        <div className="warn-banner">
-          ⚠ Aluna já tem 25h em cursos livres (limite: 30h)
-        </div>
- 
-        <div className="subm-actions">
-          <a href="coordenador.html" className="btn-approve">✓ Aprovar</a>
-          <a href="coordenador.html" className="btn-reject">✗ Reprovar</a>
-        </div>
-      </div>
- 
-      {/* Card 2: colapsado */}
-      <div className="subm-card subm-collapsed">
-        <div className="subm-card-head">
-          <div>
-            <div className="subm-student-name">Pedro Santos</div>
-            <div className="subm-student-sub">Monitoria · 60h · 01/04</div>
-          </div>
-          <span className="badge badge-amber">Pendente</span>
-        </div>
-      </div>
- 
-      {/* Card 3: colapsado */}
-      <div className="subm-card subm-collapsed">
-        <div className="subm-card-head">
-          <div>
-            <div className="subm-student-name">Ana Costa</div>
-            <div className="subm-student-sub">Congresso · 8h · 28/03</div>
-          </div>
-          <span className="badge badge-amber">Pendente</span>
-        </div>
-      </div>
- 
-      {/* Card 4: colapsado */}
-      <div className="subm-card subm-collapsed">
-        <div className="subm-card-head">
-          <div>
-            <div className="subm-student-name">Carlos Lima</div>
-            <div className="subm-student-sub">Estágio · 40h · 15/03</div>
-          </div>
-          <span className="badge badge-amber">Pendente</span>
-        </div>
-      </div>
- 
-    </div>
 
-    );
+      {pendentes.length === 0 ? (
+        <p style={{ color: 'var(--muted)', fontStyle: 'italic', marginTop: 20 }}>Nenhuma solicitação pendente.</p>
+      ) : (
+        pendentes.map((sol) => (
+          <CardSolicitacao
+            key={sol.id}
+            sol={sol}
+            onAprovar={handleAprovar}
+            onReprovar={handleReprovar}
+          />
+        ))
+      )}
+    </div>
+  );
 }
 
 export default Coordenador;

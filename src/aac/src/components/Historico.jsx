@@ -1,81 +1,88 @@
+import { useState, useEffect } from 'react';
+import { getSolicitacoesAluno } from '../db';
+
+const STATUS_BADGE = {
+  aprovado:  'badge-green',
+  pendente:  'badge-amber',
+  reprovado: 'badge-red',
+};
+
+const STATUS_LABEL = {
+  aprovado:  'Aprovada',
+  pendente:  'Em análise',
+  reprovado: 'Reprovada',
+};
+
 function Historico() {
-    return (
-        <div className="content">
-                    <h1 className="page-title">Histórico de Solicitações</h1>
+  const [solicitacoes, setSolicitacoes] = useState([]);
+  const [filtro, setFiltro] = useState('todos');
 
-                    <div className="filter-chips">
-                        <span className="chip chip-active">Todos</span>
-                        <span className="chip chip-inactive">Aprovados</span>
-                        <span className="chip chip-inactive">Pendentes</span>
-                        <span className="chip chip-inactive">Reprovadas</span>
-                    </div>
+  useEffect(() => {
+    setSolicitacoes(getSolicitacoesAluno('202508560348'));
+  }, []);
 
-                    <div className="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Atividade</th>
-                                    <th>Horas</th>
-                                    <th>Categoria</th>
-                                    <th>Status</th>
-                                    <th>Data</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <strong>Monitoria Cálculo II</strong>
-                                    </td>
-                                    <td>60h</td>
-                                    <td>Monitoria</td>
-                                    <td><span className="badge badge-green">Aprovada</span></td>
-                                    <td>20/03/2026</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Palestra IA Summit</strong>
-                                        <div className="reason-text">Motivo: Certificado sem carga horária legível.</div>
-                                    </td>
-                                    <td>4h</td>
-                                    <td>Evento</td>
-                                    <td><span className="badge badge-red">Reprovada</span></td>
-                                    <td>18/03/2026</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Curso Python — FGV</strong>
-                                    </td>
-                                    <td>30h</td>
-                                    <td>Curso livre</td>
-                                    <td><span className="badge badge-amber">Em análise</span></td>
-                                    <td>02/04/2026</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Hackathon Data Science 2026</strong>
-                                    </td>
-                                    <td>16h</td>
-                                    <td>Evento</td>
-                                    <td><span className="badge badge-green">Aprovada</span></td>
-                                    <td>10/02/2026</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Curso de Machine Learning — Bradesco</strong>
-                                    </td>
-                                    <td>40h</td>
-                                    <td>Curso livre</td>
-                                    <td><span className="badge badge-amber">Em análise</span></td>
-                                    <td>15/04/2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+  const filtros = [
+    { key: 'todos',    label: 'Todos' },
+    { key: 'aprovado', label: 'Aprovados' },
+    { key: 'pendente', label: 'Pendentes' },
+    { key: 'reprovado',label: 'Reprovadas' },
+  ];
 
-                    <a href="#" className="export-link">📊 Exportar relatório</a>
+  const lista = filtro === 'todos' ? solicitacoes : solicitacoes.filter((s) => s.status === filtro);
 
-        </div>
-    );
+  return (
+    <div className="content">
+      <h1 className="page-title">Histórico de Solicitações</h1>
+      <p className="page-sub">{solicitacoes.length} solicitações no total.</p>
+
+      <div className="filter-chips">
+        {filtros.map((f) => (
+          <button
+            key={f.key}
+            className={`chip ${filtro === f.key ? 'chip-active' : 'chip-inactive'}`}
+            onClick={() => setFiltro(f.key)}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Atividade</th>
+              <th>Local</th>
+              <th>Horas</th>
+              <th>Categoria</th>
+              <th>Status</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            {lista.map((s) => (
+              <tr key={s.id}>
+                <td>
+                  <strong>{s.atividade}</strong>
+                  {s.motivo && <div className="reason-text">Motivo: {s.motivo}</div>}
+                </td>
+                <td style={{ color: 'var(--muted)' }}>{s.local || '—'}</td>
+                <td>{s.horas}h</td>
+                <td>{s.categoria}</td>
+                <td><span className={`badge ${STATUS_BADGE[s.status]}`}>{STATUS_LABEL[s.status]}</span></td>
+                <td>{new Date(s.data).toLocaleDateString('pt-BR')}</td>
+              </tr>
+            ))}
+            {lista.length === 0 && (
+              <tr><td colSpan={5} style={{ textAlign: 'center', color: 'var(--muted)', fontStyle: 'italic' }}>Nenhuma solicitação encontrada.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <a href="#" className="export-link">📊 Exportar relatório</a>
+    </div>
+  );
 }
 
 export default Historico;
