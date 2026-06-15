@@ -18,7 +18,7 @@ function Historico() {
   const [filtro, setFiltro] = useState('todos');
 
   useEffect(() => {
-    setSolicitacoes(getSolicitacoesAluno('202508560348'));
+    getSolicitacoesAluno('202508560348').then(setSolicitacoes);
   }, []);
 
   const filtros = [

@@ -9,9 +9,10 @@ function QRPresenca() {
   const [erro, setErro] = useState('');
 
   useEffect(() => {
-    const list = getAtividades();
-    setAtividades(list);
-    if (list.length > 0) setForm((f) => ({ ...f, atividadeId: list[0].id }));
+    getAtividades().then((list) => {
+      setAtividades(list);
+      if (list.length > 0) setForm((f) => ({ ...f, atividadeId: list[0].id }));
+    });
   }, []);
 
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -19,31 +20,20 @@ function QRPresenca() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErro('');
-
-    if (!form.nome.trim() || !form.atividadeId) {
-      setErro('Preencha todos os campos.');
-      return;
-    }
+    if (!form.nome.trim() || !form.atividadeId) { setErro('Preencha todos os campos.'); return; }
 
     const existing = getPresencas().find(
       (p) => p.nome.toLowerCase() === form.nome.trim().toLowerCase() && p.atividadeId === form.atividadeId
     );
-    if (existing) {
-      setPresenca(existing);
-      return;
-    }
+    if (existing) { setPresenca(existing); return; }
 
-    const nova = addPresenca({
-      nome: form.nome.trim(),
-      local: form.local.trim(),
-      matricula: '',
-      atividadeId: form.atividadeId,
-    });
-    setPresenca(nova);
+    setPresenca(addPresenca({ nome: form.nome.trim(), local: form.local.trim(), matricula: '', atividadeId: form.atividadeId }));
   };
 
   const atividade = atividades.find((a) => a.id === presenca?.atividadeId);
-  const qrData = presenca ? JSON.stringify({ presencaId: presenca.id, matricula: presenca.matricula, nome: presenca.nome, atividadeId: presenca.atividadeId }) : '';
+  const qrData = presenca
+    ? JSON.stringify({ presencaId: presenca.id, matricula: presenca.matricula, nome: presenca.nome, atividadeId: presenca.atividadeId })
+    : '';
 
   if (presenca) {
     return (
@@ -60,7 +50,7 @@ function QRPresenca() {
         <div style={{ background: '#f9fafb', border: '1px solid var(--border)', borderRadius: 12, padding: '28px 20px', marginBottom: 20 }}>
           <QRCodeSVG value={qrData} size={220} style={{ display: 'block', margin: '0 auto 20px' }} />
           <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--navy)', marginBottom: 4 }}>{presenca.nome}</div>
-          <div style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 8 }}>Matrícula: {presenca.matricula}</div>
+          <div style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 8 }}>Matrícula: {presenca.matricula || '—'}</div>
           {atividade && (
             <div style={{ fontSize: 13, color: 'var(--text)' }}>
               <strong>{atividade.nome}</strong><br />
@@ -69,11 +59,8 @@ function QRPresenca() {
           )}
         </div>
 
-        <button
-          className="btn-submit"
-          style={{ background: 'var(--navy)' }}
-          onClick={() => { setPresenca(null); setForm({ nome: '', local: '', atividadeId: atividades[0]?.id || '' }); }}
-        >
+        <button className="btn-submit" style={{ background: 'var(--navy)' }}
+          onClick={() => { setPresenca(null); setForm({ nome: '', local: '', atividadeId: atividades[0]?.id || '' }); }}>
           Registrar outra presença
         </button>
       </div>
@@ -84,33 +71,24 @@ function QRPresenca() {
     <div className="content" style={{ maxWidth: 480, margin: '0 auto' }}>
       <h1 className="page-title">Verificar Presença</h1>
       <p className="page-sub">Preencha seus dados para gerar o QR code de presença na atividade.</p>
-
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label">Atividade</label>
           <select className="form-control" value={form.atividadeId} onChange={set('atividadeId')} required>
             {atividades.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.nome} — {a.data} ({a.tipo === 'interna' ? 'Interna' : 'Externa'})
-              </option>
+              <option key={a.id} value={a.id}>{a.nome} — {a.data} ({a.tipo === 'interna' ? 'Interna' : 'Externa'})</option>
             ))}
           </select>
         </div>
-
         <div className="form-group">
           <label className="form-label">Nome completo</label>
           <input className="form-control" value={form.nome} onChange={set('nome')} required placeholder="Ex: João da Silva" />
         </div>
-
         <div className="form-group">
           <label className="form-label">Local da atividade</label>
           <input className="form-control" value={form.local} onChange={set('local')} placeholder="Ex: Auditório A, Online, Sala 210" />
         </div>
-
-        {erro && (
-          <div className="warn-banner" style={{ marginBottom: 12 }}>{erro}</div>
-        )}
-
+        {erro && <div className="warn-banner" style={{ marginBottom: 12 }}>{erro}</div>}
         <button type="submit" className="btn-submit">Gerar QR Code</button>
       </form>
     </div>

@@ -4,15 +4,18 @@ const TABS_POR_PERFIL = {
     { key: 'historico', icon: '📋', label: 'Histórico' },
     { key: 'notificacoes', icon: '🔔', label: 'Notificações' },
     { key: 'scan-qr', icon: '✅', label: 'Registrar Presença QR' },
+    { key: 'qr-presenca', icon: '📷', label: 'Verificar Presença QR' },
   ],
   coordenador: [
     { key: 'coordenador', icon: '📝', label: 'Fila de Validação' },
     { key: 'qr-presenca', icon: '📷', label: 'Verificar Presença QR' },
+    { key: 'scan-qr', icon: '✅', label: 'Registrar Presença QR' },
     { key: 'notificacoes', icon: '🔔', label: 'Notificações' },
   ],
   secretaria: [
     { key: 'secretaria', icon: '🏫', label: 'Painel' },
     { key: 'qr-presenca', icon: '📷', label: 'Verificar Presença QR' },
+    { key: 'scan-qr', icon: '✅', label: 'Registrar Presença QR' },
     { key: 'notificacoes', icon: '🔔', label: 'Notificações' },
   ],
 };
@@ -60,7 +63,7 @@ function Header({ currentPage, navigate, perfil, onLogout, onToggleSidebar }) {
             style={{
               background: 'none', border: '1px solid var(--border)', borderRadius: 6,
               padding: '4px 10px', fontSize: 12, fontWeight: 700, color: 'var(--muted)',
-              cursor: 'pointer', fontFamily: 'Nunito, sans-serif',
+              cursor: 'pointer', fontFamily: 'Nunito, sans-serif', flexShrink: 0,
             }}
           >
             Sair

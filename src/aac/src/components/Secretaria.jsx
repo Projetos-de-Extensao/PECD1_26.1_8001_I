@@ -1,8 +1,43 @@
 import { useState, useEffect } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 import { getAtividades, addAtividade, getPresencas, getAlunosEmRisco, getSolicitacoes } from '../db';
 
 const TIPO_LABEL = { interna: 'Interna', externa: 'Externa' };
 const TIPO_COLOR = { interna: 'badge-green', externa: 'badge-amber' };
+
+function QRPopup({ atividade, onClose }) {
+  const qrValue = JSON.stringify({ type: 'activity-checkin', atividadeId: atividade.id });
+  return (
+    <div style={overlay} onClick={onClose}>
+      <div
+        style={{ ...modal, maxWidth: 400, textAlign: 'center' }}
+        className="modal-secretaria"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button onClick={onClose} style={{ ...closeBtn, position: 'absolute', top: 16, right: 20 }}>✕</button>
+        <div style={{ fontSize: 32, marginBottom: 8 }}>🎉</div>
+        <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--navy)', marginBottom: 6 }}>
+          Atividade criada!
+        </h2>
+        <p style={{ fontSize: 13, color: 'var(--muted)', marginBottom: 20, lineHeight: 1.5 }}>
+          Este QR code ficará <strong>sempre ativo</strong> e pode ser acessado nos detalhes da atividade. Projete ou imprima no evento para que os alunos façam check-in.
+        </p>
+        <div style={{ background: '#f9fafb', border: '1px solid var(--border)', borderRadius: 10, padding: '20px 16px', marginBottom: 16 }}>
+          <QRCodeSVG value={qrValue} size={180} style={{ display: 'block', margin: '0 auto 14px' }} />
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--navy)' }}>{atividade.nome}</div>
+          {atividade.data && (
+            <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 4 }}>
+              {atividade.data} · {atividade.horas}h · {atividade.local || '—'}
+            </div>
+          )}
+        </div>
+        <button className="btn-submit" style={{ marginTop: 0 }} onClick={onClose}>
+          Entendido
+        </button>
+      </div>
+    </div>
+  );
+}
 
 function NovaAtividadeModal({ onClose, onSave }) {
   const [form, setForm] = useState({ nome: '', tipo: 'externa', data: '', horas: '', descricao: '', local: '' });
@@ -105,6 +140,20 @@ function AtividadeCard({ atividade, presencas }) {
             </div>
           </div>
 
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16, marginBottom: 16, textAlign: 'center' }}>
+            <p style={{ fontSize: 12, color: 'var(--muted)', marginBottom: 10, fontWeight: 700 }}>
+              QR CODE DA ATIVIDADE — alunos escaneiam para registrar presença
+            </p>
+            <QRCodeSVG
+              value={JSON.stringify({ type: 'activity-checkin', atividadeId: atividade.id })}
+              size={160}
+              style={{ display: 'block', margin: '0 auto' }}
+            />
+            <p style={{ fontSize: 11, color: 'var(--muted)', marginTop: 8 }}>
+              Projete ou imprima este QR code no evento
+            </p>
+          </div>
+
           {inscritos.length === 0 ? (
             <p style={{ fontSize: 13, color: 'var(--muted)', fontStyle: 'italic' }}>Nenhum aluno inscrito ainda.</p>
           ) : (
@@ -149,25 +198,31 @@ function Secretaria() {
   const [alunosRisco, setAlunosRisco] = useState([]);
   const [totalAlunos, setTotalAlunos] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [qrPopup, setQrPopup] = useState(null);
+  const [busca, setBusca] = useState('');
 
   useEffect(() => {
-    setAtividades(getAtividades());
+    getAtividades().then(setAtividades);
     setPresencas(getPresencas());
-    const risco = getAlunosEmRisco();
-    setAlunosRisco(risco);
-    const solicitacoes = getSolicitacoes();
-    const matriculasUnicas = new Set(solicitacoes.map((s) => s.matricula));
-    setTotalAlunos(matriculasUnicas.size);
+    getAlunosEmRisco().then(setAlunosRisco);
+    getSolicitacoes().then((sols) => setTotalAlunos(new Set(sols.map((s) => s.matricula)).size));
   }, []);
 
-  const handleSave = (form) => {
-    addAtividade(form);
-    setAtividades(getAtividades());
+  const handleSave = async (form) => {
+    const nova = await addAtividade(form);
+    getAtividades().then(setAtividades);
     setShowModal(false);
+    setQrPopup(nova);
   };
 
   const totalInscritos = presencas.length;
   const totalVerificados = presencas.filter((p) => p.verificado).length;
+
+  const atividadesFiltradas = atividades.filter((a) =>
+    a.nome.toLowerCase().includes(busca.toLowerCase()) ||
+    (a.local || '').toLowerCase().includes(busca.toLowerCase()) ||
+    (a.categoria || '').toLowerCase().includes(busca.toLowerCase())
+  );
 
   return (
     <div className="content">
@@ -235,20 +290,35 @@ function Secretaria() {
         </>
       )}
 
-      <h2 style={{ fontSize: 15, fontWeight: 800, color: 'var(--navy)', marginBottom: 12 }}>
-        Atividades — clique para ver detalhes e presenças
-      </h2>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', marginBottom: 12 }}>
+        <h2 style={{ fontSize: 15, fontWeight: 800, color: 'var(--navy)', margin: 0 }}>
+          Atividades — clique para ver detalhes e presenças
+        </h2>
+        <input
+          className="form-control"
+          style={{ maxWidth: 260, margin: 0, padding: '8px 12px', fontSize: 13 }}
+          placeholder="🔍 Buscar atividade..."
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+        />
+      </div>
 
-      {atividades.length === 0 ? (
-        <p style={{ color: 'var(--muted)', fontStyle: 'italic' }}>Nenhuma atividade cadastrada.</p>
+      {atividadesFiltradas.length === 0 ? (
+        <p style={{ color: 'var(--muted)', fontStyle: 'italic' }}>
+          {busca ? 'Nenhuma atividade encontrada.' : 'Nenhuma atividade cadastrada.'}
+        </p>
       ) : (
-        atividades.map((a) => (
+        atividadesFiltradas.map((a) => (
           <AtividadeCard key={a.id} atividade={a} presencas={presencas} />
         ))
       )}
 
       {showModal && (
         <NovaAtividadeModal onClose={() => setShowModal(false)} onSave={handleSave} />
+      )}
+
+      {qrPopup && (
+        <QRPopup atividade={qrPopup} onClose={() => setQrPopup(null)} />
       )}
     </div>
   );
@@ -262,7 +332,7 @@ const overlay = {
 const modal = {
   background: '#fff', borderRadius: 12, padding: '28px 32px',
   width: '100%', maxWidth: 540, maxHeight: '90vh', overflowY: 'auto',
-  boxShadow: '0 20px 60px rgba(0,0,0,.2)',
+  boxShadow: '0 20px 60px rgba(0,0,0,.2)', position: 'relative',
 };
 
 const closeBtn = {

@@ -11,7 +11,7 @@ function Notificacoes({ perfil = 'aluno' }) {
   const [notificacoes, setNotificacoes] = useState([]);
 
   useEffect(() => {
-    setNotificacoes(getNotificacoes(perfil));
+    getNotificacoes(perfil).then(setNotificacoes);
   }, [perfil]);
 
   return (

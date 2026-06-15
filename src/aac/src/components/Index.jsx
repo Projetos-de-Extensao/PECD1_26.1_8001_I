@@ -22,7 +22,7 @@ function Index() {
   const [solicitacoes, setSolicitacoes] = useState([]);
 
   useEffect(() => {
-    setSolicitacoes(getSolicitacoesAluno('202508560348'));
+    getSolicitacoesAluno('202508560348').then(setSolicitacoes);
   }, []);
 
   const aprovadas = solicitacoes.filter((s) => s.status === 'aprovado');

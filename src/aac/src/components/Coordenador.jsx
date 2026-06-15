@@ -6,7 +6,6 @@ function CardSolicitacao({ sol, onAprovar, onReprovar }) {
 
   return (
     <div className="subm-card">
-      {/* Cabeçalho clicável */}
       <div
         className="subm-card-head"
         onClick={() => setAberto((o) => !o)}
@@ -61,9 +60,10 @@ function CardSolicitacao({ sol, onAprovar, onReprovar }) {
 
 function Coordenador() {
   const [pendentes, setPendentes] = useState([]);
+  const [busca, setBusca] = useState('');
 
   useEffect(() => {
-    setPendentes(getSolicitacoesPendentes());
+    getSolicitacoesPendentes().then(setPendentes);
   }, []);
 
   const handleAprovar = (id) => {
@@ -76,6 +76,10 @@ function Coordenador() {
     setPendentes((prev) => prev.filter((s) => s.id !== id));
   };
 
+  const pendentesFiltrados = pendentes.filter((s) =>
+    s.alunoNome.toLowerCase().includes(busca.toLowerCase())
+  );
+
   return (
     <div className="content">
       <div className="fila-header">
@@ -85,18 +89,27 @@ function Coordenador() {
         )}
       </div>
 
-      <div className="filter-chips">
-        <span className="chip chip-active">Todos</span>
-        <span className="chip chip-inactive">Formandos</span>
-        <span className="chip chip-inactive">Pendentes &gt;7d</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', marginBottom: 16 }}>
+        <div className="filter-chips" style={{ margin: 0, flex: 1 }}>
+          <span className="chip chip-active">Todos</span>
+          <span className="chip chip-inactive">Formandos</span>
+          <span className="chip chip-inactive">Pendentes &gt;7d</span>
+        </div>
+        <input
+          className="form-control"
+          style={{ maxWidth: 240, margin: 0, padding: '8px 12px', fontSize: 13 }}
+          placeholder="🔍 Buscar por aluno..."
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+        />
       </div>
 
-      {pendentes.length === 0 ? (
+      {pendentesFiltrados.length === 0 ? (
         <p style={{ color: 'var(--muted)', fontStyle: 'italic', marginTop: 20 }}>
-          Nenhuma solicitação pendente.
+          {busca ? 'Nenhum aluno encontrado.' : 'Nenhuma solicitação pendente.'}
         </p>
       ) : (
-        pendentes.map((sol) => (
+        pendentesFiltrados.map((sol) => (
           <CardSolicitacao
             key={sol.id}
             sol={sol}

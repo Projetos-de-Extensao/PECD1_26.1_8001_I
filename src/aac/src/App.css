@@ -49,7 +49,7 @@ a { text-decoration: none; color: inherit; }
 .sidebar {
   width: 260px;
   background: var(--sidebar-bg);
-  border-right: 1px solid var(--border);
+  border-right: none;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -151,12 +151,19 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   min-height: 100vh;
   background: #fff;
-  width: 100%;
+  width: 100%%;
+}
+
+@media (max-width: 767px) {
+  .main {
+    overflow-x: hidden;
+  }
 }
 
 @media (min-width: 768px) {
   .main {
     margin-left: var(--sidebar-w);
+    width: calc(100vw - var(--sidebar-w));
   }
 }
 
@@ -197,7 +204,9 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
+
 
 @media (min-width: 768px) {
   .topbar-right { gap: 20px; }
