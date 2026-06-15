@@ -151,13 +151,7 @@ a { text-decoration: none; color: inherit; }
   flex-direction: column;
   min-height: 100vh;
   background: #fff;
-  width: 100%%;
-}
-
-@media (max-width: 767px) {
-  .main {
-    overflow-x: hidden;
-  }
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -204,9 +198,7 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
 }
-
 
 @media (min-width: 768px) {
   .topbar-right { gap: 20px; }
