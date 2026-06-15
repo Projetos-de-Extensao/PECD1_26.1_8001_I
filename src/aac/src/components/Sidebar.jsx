@@ -17,31 +17,39 @@ const ITEMS_POR_PERFIL = {
   ],
 };
 
-function Sidebar({ currentPage, navigate, perfil }) {
+function Sidebar({ currentPage, navigate, perfil, isOpen, onClose }) {
   const items = ITEMS_POR_PERFIL[perfil] || ITEMS_POR_PERFIL.aluno;
 
   return (
-    <nav className="sidebar">
-      <div className="sidebar-brand">
-        <span className="ibmec-dot"></span>
-        <span className="ibmec-name">ibmec</span>
-      </div>
-      <div className="sidebar-nav">
-        {items.map((item) => (
-          <button
-            key={item.key}
-            className={`sidebar-item${currentPage === item.key ? ' active' : ''}`}
-            onClick={() => navigate(item.key)}
-            style={{
-              width: '100%', textAlign: 'left', background: 'none',
-              border: 'none', font: 'inherit', cursor: 'pointer',
-            }}
-          >
-            {item.label} <span className="arrow">›</span>
-          </button>
-        ))}
-      </div>
-    </nav>
+    <>
+      {/* Overlay escuro no mobile */}
+      <div
+        className={`sidebar-overlay${isOpen ? ' sidebar-open' : ''}`}
+        onClick={onClose}
+      />
+
+      <nav className={`sidebar${isOpen ? ' sidebar-open' : ''}`}>
+        <div className="sidebar-brand">
+          <span className="ibmec-dot"></span>
+          <span className="ibmec-name">ibmec</span>
+        </div>
+        <div className="sidebar-nav">
+          {items.map((item) => (
+            <button
+              key={item.key}
+              className={`sidebar-item${currentPage === item.key ? ' active' : ''}`}
+              onClick={() => navigate(item.key)}
+              style={{
+                width: '100%', textAlign: 'left', background: 'none',
+                border: 'none', font: 'inherit', cursor: 'pointer',
+              }}
+            >
+              {item.label} <span className="arrow">›</span>
+            </button>
+          ))}
+        </div>
+      </nav>
+    </>
   );
 }
 

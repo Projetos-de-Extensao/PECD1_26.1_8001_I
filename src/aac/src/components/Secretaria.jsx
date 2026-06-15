@@ -17,7 +17,7 @@ function NovaAtividadeModal({ onClose, onSave }) {
 
   return (
     <div style={overlay}>
-      <div style={modal}>
+      <div style={modal} className="modal-secretaria">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--navy)' }}>Nova Atividade</h2>
           <button onClick={onClose} style={closeBtn}>✕</button>
@@ -171,14 +171,20 @@ function Secretaria() {
 
   return (
     <div className="content">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <div>
-          <h1 className="page-title">Painel da Secretaria</h1>
-          <p className="page-sub">Gerencie as atividades complementares e acompanhe as presenças.</p>
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
+          <div>
+            <h1 className="page-title">Painel da Secretaria</h1>
+            <p className="page-sub">Gerencie as atividades complementares e acompanhe as presenças.</p>
+          </div>
+          <button
+            className="btn-submit sec-nova-btn"
+            style={{ marginTop: 0, padding: '10px 20px', flexShrink: 0 }}
+            onClick={() => setShowModal(true)}
+          >
+            + Nova Atividade
+          </button>
         </div>
-        <button className="btn-submit" style={{ width: 'auto', marginTop: 0, padding: '10px 20px' }} onClick={() => setShowModal(true)}>
-          + Nova Atividade
-        </button>
       </div>
 
       <div className="sec-stat-row">

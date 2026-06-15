@@ -23,6 +23,8 @@ function Login({ onLogin }) {
 
   return (
     <div className="login-container">
+
+      {/* Painel esquerdo — compacto no mobile, expandido no desktop */}
       <div className="login-left">
         <div className="brand">
           <span className="ibmec-dot"></span>
@@ -30,7 +32,7 @@ function Login({ onLogin }) {
         </div>
         <div className="left-content">
           <h1 style={{ color: '#ffffff' }}>Portal de Atividades Complementares</h1>
-          <p>
+          <p className="login-left-desc">
             Acesse o sistema para enviar certificados,
             acompanhar suas horas complementares
             e visualizar o andamento das solicitações.
@@ -38,13 +40,14 @@ function Login({ onLogin }) {
         </div>
       </div>
 
+      {/* Formulário */}
       <div className="login-right">
         <div className="login-box">
           <h2>Entrar</h2>
           <p className="subtitle">Selecione seu perfil e faça login</p>
 
           {/* Seletor de perfil */}
-          <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 24 }}>
             {PERFIS.map((p) => (
               <button
                 key={p.key}
@@ -52,23 +55,26 @@ function Login({ onLogin }) {
                 onClick={() => setPerfil(p.key)}
                 style={{
                   flex: 1,
-                  padding: '10px 4px',
+                  padding: '14px 4px',
                   border: `2px solid ${perfil === p.key ? 'var(--navy)' : 'var(--border)'}`,
-                  borderRadius: 8,
+                  borderRadius: 10,
                   background: perfil === p.key ? 'var(--navy)' : '#fff',
                   color: perfil === p.key ? '#fff' : 'var(--muted)',
                   fontFamily: 'Nunito, sans-serif',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: 700,
                   cursor: 'pointer',
                   transition: 'all .15s',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: 4,
+                  gap: 6,
+                  minHeight: 72,
+                  justifyContent: 'center',
+                  WebkitTapHighlightColor: 'transparent',
                 }}
               >
-                <span style={{ fontSize: 20 }}>{p.icon}</span>
+                <span style={{ fontSize: 24 }}>{p.icon}</span>
                 {p.label}
               </button>
             ))}
@@ -81,12 +87,18 @@ function Login({ onLogin }) {
                 type="email"
                 id="email"
                 placeholder={PLACEHOLDER_EMAIL[perfil]}
+                autoComplete="email"
               />
             </div>
 
             <div className="input-group">
               <label htmlFor="senha">Senha</label>
-              <input type="password" id="senha" placeholder="Digite sua senha" />
+              <input
+                type="password"
+                id="senha"
+                placeholder="Digite sua senha"
+                autoComplete="current-password"
+              />
             </div>
 
             <div className="login-options">

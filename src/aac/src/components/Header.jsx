@@ -29,15 +29,18 @@ const AVATAR_PERFIL = {
   secretaria: 'S',
 };
 
-function Header({ currentPage, navigate, perfil, onLogout }) {
+function Header({ currentPage, navigate, perfil, onLogout, onToggleSidebar }) {
   const tabs = TABS_POR_PERFIL[perfil] || TABS_POR_PERFIL.aluno;
 
   return (
     <>
       <header className="topbar">
-        <div className="topbar-brand">
-          <span className="ibmec-dot"></span>
-          <span className="ibmec-name">ibmec</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button className="hamburger-btn" onClick={onToggleSidebar} aria-label="Menu">☰</button>
+          <div className="topbar-brand">
+            <span className="ibmec-dot"></span>
+            <span className="ibmec-name">ibmec</span>
+          </div>
         </div>
         <div className="topbar-right">
           <button
@@ -45,7 +48,7 @@ function Header({ currentPage, navigate, perfil, onLogout }) {
             className="notif-link"
             style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
           >
-            <span>🔔</span> Notificações
+            <span>🔔</span><span className="notif-label"> Notificações</span>
           </button>
           <div className="user-info">
             <div className="name">Olá, <strong>{NOME_PERFIL[perfil]}</strong></div>

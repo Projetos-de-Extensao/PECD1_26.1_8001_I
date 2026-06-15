@@ -6,17 +6,21 @@ function CardSolicitacao({ sol, onAprovar, onReprovar }) {
 
   return (
     <div className="subm-card">
-      <div className="subm-card-head" onClick={() => setAberto((o) => !o)} style={{ cursor: 'pointer' }}>
-        <div>
+      {/* Cabeçalho clicável */}
+      <div
+        className="subm-card-head"
+        onClick={() => setAberto((o) => !o)}
+        style={{ cursor: 'pointer', alignItems: 'flex-start' }}
+      >
+        <div style={{ flex: 1, minWidth: 0 }}>
           <div className="subm-student-name">{sol.alunoNome}</div>
-          <div className="subm-student-sub">
-            {sol.curso} · {sol.periodo} período · {sol.horas}h · {new Date(sol.data).toLocaleDateString('pt-BR')}
-          </div>
+          <div className="subm-student-sub">{sol.curso} · {sol.periodo} período</div>
+          <div className="subm-student-sub">{sol.horas}h · {new Date(sol.data).toLocaleDateString('pt-BR')}</div>
         </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6, flexShrink: 0 }}>
           {sol.formando && <span className="badge-formando">⚠ Formando</span>}
           <span className="badge badge-amber">Pendente</span>
-          <span style={{ color: 'var(--muted)', fontSize: 16 }}>{aberto ? '▲' : '▼'}</span>
+          <span style={{ color: 'var(--muted)', fontSize: 14 }}>{aberto ? '▲' : '▼'}</span>
         </div>
       </div>
 
@@ -33,8 +37,12 @@ function CardSolicitacao({ sol, onAprovar, onReprovar }) {
             <div className="meta-item">Horas<strong>{sol.horas}h</strong></div>
             <div className="meta-item">Categoria<strong>{sol.categoria}</strong></div>
           </div>
+
           <div style={{ textAlign: 'center', padding: '6px 16px 10px', fontSize: 12, color: 'var(--muted)' }}>
-            Enviado<strong style={{ display: 'block', fontSize: 13, color: 'var(--text)' }}>{new Date(sol.data).toLocaleDateString('pt-BR')}</strong>
+            Enviado
+            <strong style={{ display: 'block', fontSize: 13, color: 'var(--text)' }}>
+              {new Date(sol.data).toLocaleDateString('pt-BR')}
+            </strong>
           </div>
 
           {sol.aviso && (
@@ -84,7 +92,9 @@ function Coordenador() {
       </div>
 
       {pendentes.length === 0 ? (
-        <p style={{ color: 'var(--muted)', fontStyle: 'italic', marginTop: 20 }}>Nenhuma solicitação pendente.</p>
+        <p style={{ color: 'var(--muted)', fontStyle: 'italic', marginTop: 20 }}>
+          Nenhuma solicitação pendente.
+        </p>
       ) : (
         pendentes.map((sol) => (
           <CardSolicitacao
