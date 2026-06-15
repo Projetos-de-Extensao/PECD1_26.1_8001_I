@@ -154,6 +154,10 @@ a { text-decoration: none; color: inherit; }
   box-sizing: border-box;
 }
 
+@media (max-width: 767px) {
+  .main { overflow-x: hidden; }
+}
+
 @media (min-width: 768px) {
   .main {
     margin-left: var(--sidebar-w);
