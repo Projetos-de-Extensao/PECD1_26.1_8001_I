@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getSolicitacoesAluno } from '../db';
 
 const STATUS_BADGE = {
   aprovado:  'badge-green',
@@ -18,8 +17,21 @@ function Historico() {
   const [filtro, setFiltro] = useState('todos');
 
   useEffect(() => {
-    getSolicitacoesAluno('202508560348').then(setSolicitacoes);
-  }, []);
+  fetch('http://localhost:3001/solicitacoes?matricula=202508560348')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar histórico de solicitações');
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      setSolicitacoes(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}, []);
 
   const filtros = [
     { key: 'todos',    label: 'Todos' },

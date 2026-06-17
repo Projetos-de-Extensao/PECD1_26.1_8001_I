@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getSolicitacoesPendentes, atualizarSolicitacao } from '../db';
 
 function CardSolicitacao({ sol, onAprovar, onReprovar }) {
   const [aberto, setAberto] = useState(false);
@@ -63,18 +62,64 @@ function Coordenador() {
   const [busca, setBusca] = useState('');
 
   useEffect(() => {
-    getSolicitacoesPendentes().then(setPendentes);
-  }, []);
+  fetch('http://localhost:3001/solicitacoes?status=pendente')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar solicitações pendentes');
+      }
 
-  const handleAprovar = (id) => {
-    atualizarSolicitacao(id, 'aprovado');
-    setPendentes((prev) => prev.filter((s) => s.id !== id));
-  };
+      return response.json();
+    })
+    .then((data) => {
+      setPendentes(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}, []);
 
+ const handleAprovar = (id) => {
+  fetch(`http://localhost:3001/solicitacoes/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      status: 'aprovado',
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao aprovar solicitação');
+      }
+
+      setPendentes((prev) => prev.filter((s) => s.id !== id));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
   const handleReprovar = (id) => {
-    atualizarSolicitacao(id, 'reprovado');
-    setPendentes((prev) => prev.filter((s) => s.id !== id));
-  };
+  fetch(`http://localhost:3001/solicitacoes/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      status: 'reprovado',
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao reprovar solicitação');
+      }
+
+      setPendentes((prev) => prev.filter((s) => s.id !== id));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
   const pendentesFiltrados = pendentes.filter((s) =>
     s.alunoNome.toLowerCase().includes(busca.toLowerCase())

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { getAtividades, addPresenca, getPresencas } from '../db';
 
 function QRPresenca() {
   const [atividades, setAtividades] = useState([]);
@@ -8,27 +7,90 @@ function QRPresenca() {
   const [presenca, setPresenca] = useState(null);
   const [erro, setErro] = useState('');
 
-  useEffect(() => {
-    getAtividades().then((list) => {
+  uuseEffect(() => {
+  fetch('http://localhost:3001/atividades')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar atividades');
+      }
+
+      return response.json();
+    })
+    .then((list) => {
       setAtividades(list);
-      if (list.length > 0) setForm((f) => ({ ...f, atividadeId: list[0].id }));
+
+      if (list.length > 0) {
+        setForm((f) => ({ ...f, atividadeId: list[0].id }));
+      }
+    })
+    .catch((error) => {
+      console.error(error);
     });
-  }, []);
+}, []);
 
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setErro('');
-    if (!form.nome.trim() || !form.atividadeId) { setErro('Preencha todos os campos.'); return; }
+  e.preventDefault();
+  setErro('');
 
-    const existing = getPresencas().find(
-      (p) => p.nome.toLowerCase() === form.nome.trim().toLowerCase() && p.atividadeId === form.atividadeId
-    );
-    if (existing) { setPresenca(existing); return; }
+  if (!form.nome.trim() || !form.atividadeId) {
+    setErro('Preencha todos os campos.');
+    return;
+  }
 
-    setPresenca(addPresenca({ nome: form.nome.trim(), local: form.local.trim(), matricula: '', atividadeId: form.atividadeId }));
-  };
+  fetch(`http://localhost:3001/presencas?nome=${form.nome.trim()}&atividadeId=${form.atividadeId}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar presença');
+      }
+
+      return response.json();
+    })
+    .then((presencasEncontradas) => {
+      const existing = presencasEncontradas.find(
+        (p) =>
+          p.nome.toLowerCase() === form.nome.trim().toLowerCase() &&
+          p.atividadeId === form.atividadeId
+      );
+
+      if (existing) {
+        setPresenca(existing);
+        return;
+      }
+
+      const novaPresenca = {
+        nome: form.nome.trim(),
+        local: form.local.trim(),
+        matricula: '',
+        atividadeId: form.atividadeId,
+        verificado: false,
+        verificadoEm: null,
+      };
+
+      fetch('http://localhost:3001/presencas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(novaPresenca),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Erro ao registrar presença');
+          }
+
+          return response.json();
+        })
+        .then((presencaCriada) => {
+          setPresenca(presencaCriada);
+        });
+    })
+    .catch((error) => {
+      console.error(error);
+      setErro('Não foi possível gerar a presença.');
+    });
+};
 
   const atividade = atividades.find((a) => a.id === presenca?.atividadeId);
   const qrData = presenca

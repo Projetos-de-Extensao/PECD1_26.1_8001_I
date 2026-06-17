@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getNotificacoes } from '../db';
 
 const TITULO_PERFIL = {
   aluno:       'Suas Notificações',
@@ -11,8 +10,21 @@ function Notificacoes({ perfil = 'aluno' }) {
   const [notificacoes, setNotificacoes] = useState([]);
 
   useEffect(() => {
-    getNotificacoes(perfil).then(setNotificacoes);
-  }, [perfil]);
+  fetch(`http://localhost:3001/notificacoes?publico=${perfil}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar notificações');
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      setNotificacoes(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}, [perfil]);
 
   return (
     <div className="content">

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getSolicitacoesAluno } from '../db';
 
 const CATEGORIAS = [
   { nome: 'Cursos livres',         limite: 30  },
@@ -22,8 +21,21 @@ function Index() {
   const [solicitacoes, setSolicitacoes] = useState([]);
 
   useEffect(() => {
-    getSolicitacoesAluno('202508560348').then(setSolicitacoes);
-  }, []);
+  fetch('http://localhost:3001/solicitacoes?matricula=202508560348')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar solicitações do aluno');
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      setSolicitacoes(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}, []);
 
   const aprovadas = solicitacoes.filter((s) => s.status === 'aprovado');
   const emAnalise = solicitacoes.filter((s) => s.status === 'pendente');
