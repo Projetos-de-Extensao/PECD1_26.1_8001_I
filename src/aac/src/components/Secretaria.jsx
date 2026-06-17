@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
+import { getAtividades, addAtividade, getPresencas, getAlunosEmRisco, getSolicitacoes } from '../db';
 
 const TIPO_LABEL = { interna: 'Interna', externa: 'Externa' };
 const TIPO_COLOR = { interna: 'badge-green', externa: 'badge-amber' };
@@ -200,56 +201,20 @@ function Secretaria() {
   const [qrPopup, setQrPopup] = useState(null);
   const [busca, setBusca] = useState('');
 
-useEffect(() => {
-  fetch('http://localhost:3001/atividades')
-    .then((response) => response.json())
-    .then((data) => setAtividades(data))
-    .catch((error) => console.error(error));
+  useEffect(() => {
+    getAtividades().then(setAtividades);
+    setPresencas(getPresencas());
+    getAlunosEmRisco().then(setAlunosRisco);
+    getSolicitacoes().then((sols) => setTotalAlunos(new Set(sols.map((s) => s.matricula)).size));
+  }, []);
 
-  fetch('http://localhost:3001/presencas')
-    .then((response) => response.json())
-    .then((data) => setPresencas(data))
-    .catch((error) => console.error(error));
-
-  fetch('http://localhost:3001/alunos')
-    .then((response) => response.json())
-    .then((data) => {
-      const emRisco = data.filter((aluno) => aluno.cumprido < aluno.total);
-      setAlunosRisco(emRisco);
-    })
-    .catch((error) => console.error(error));
-
-  fetch('http://localhost:3001/solicitacoes')
-    .then((response) => response.json())
-    .then((sols) => {
-      setTotalAlunos(new Set(sols.map((s) => s.matricula)).size);
-    })
-    .catch((error) => console.error(error));
-}, []);
-
-const handleSave = async (form) => {
-  try {
-    const response = await fetch('http://localhost:3001/atividades', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(form),
-    });
-
-    if (!response.ok) {
-      throw new Error('Erro ao cadastrar atividade');
-    }
-
-    const nova = await response.json();
-
-    setAtividades((prev) => [...prev, nova]);
+  const handleSave = async (form) => {
+    const nova = await addAtividade(form);
+    getAtividades().then(setAtividades);
     setShowModal(false);
     setQrPopup(nova);
-  } catch (error) {
-    console.error(error);
-  }
-};
+  };
+
   const totalInscritos = presencas.length;
   const totalVerificados = presencas.filter((p) => p.verificado).length;
 
