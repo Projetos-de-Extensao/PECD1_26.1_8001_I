@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getSolicitacoesPendentes, atualizarSolicitacao } from '../db';
+import { getSolicitacoesPendentes, atualizarSolicitacao } from '../api';
 
 function CardSolicitacao({ sol, onAprovar, onReprovar }) {
   const [aberto, setAberto] = useState(false);

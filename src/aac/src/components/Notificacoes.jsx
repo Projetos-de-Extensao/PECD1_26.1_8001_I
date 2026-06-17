@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getNotificacoes } from '../db';
+import { getNotificacoes } from '../api';
 
 const TITULO_PERFIL = {
   aluno:       'Suas Notificações',

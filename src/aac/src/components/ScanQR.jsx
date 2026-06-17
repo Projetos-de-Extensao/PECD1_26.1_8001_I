@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
-import { getPresencaById, getAtividades, verificarPresenca, addPresencaVerificada, getPresencas } from '../db';
+import { getPresencaById, getAtividades, verificarPresenca, addPresencaVerificada, getPresencas } from '../api';
 
 function ScanQR() {
   const [resultado, setResultado] = useState(null);
@@ -36,18 +36,28 @@ function ScanQR() {
           if (data.type === 'activity-checkin' && data.atividadeId) {
             const ativ = atividades.find((a) => a.id === data.atividadeId);
             setCheckinAtividade(ativ || { id: data.atividadeId, nome: 'Atividade desconhecida' });
-          } else if (data.presencaId) {
-            const presenca = getPresencaById(data.presencaId);
-            if (!presenca) setErroScan('Presença não encontrada no sistema.');
-            else setResultado(presenca);
-          } else {
-            throw new Error('QR inválido');
+            scanner.clear().catch(() => {});
+            setScannerAtivo(false);
+            return;
           }
+          if (data.presencaId) {
+            getPresencaById(data.presencaId).then((presenca) => {
+              if (!presenca) setErroScan('Presença não encontrada no sistema.');
+              else setResultado(presenca);
+            }).catch(() => {
+              setErroScan('Erro ao buscar presença.');
+            }).finally(() => {
+              scanner.clear().catch(() => {});
+              setScannerAtivo(false);
+            });
+            return;
+          }
+          throw new Error('QR inválido');
         } catch {
           setErroScan('QR code inválido ou não reconhecido.');
+          scanner.clear().catch(() => {});
+          setScannerAtivo(false);
         }
-        scanner.clear().catch(() => {});
-        setScannerAtivo(false);
       },
       () => {}
     );
@@ -56,21 +66,23 @@ function ScanQR() {
     return () => { scanner.clear().catch(() => {}); };
   }, [scannerAtivo]);
 
-  const confirmarPresenca = () => {
+  const confirmarPresenca = async () => {
     if (!resultado) return;
-    setResultado(verificarPresenca(resultado.id));
+    const atualizado = await verificarPresenca(resultado.id);
+    setResultado(atualizado);
   };
 
-  const handleCheckin = (e) => {
+  const handleCheckin = async (e) => {
     e.preventDefault();
     if (!checkinNome.trim() || !checkinAtividade) return;
 
-    const duplicado = getPresencas().find(
+    const presencasList = await getPresencas();
+    const duplicado = presencasList.find(
       (p) => p.nome.toLowerCase() === checkinNome.trim().toLowerCase() && p.atividadeId === checkinAtividade.id
     );
     if (duplicado) { setCheckinFeito(duplicado); return; }
 
-    const nova = addPresencaVerificada({ nome: checkinNome.trim(), matricula: '', atividadeId: checkinAtividade.id, local: checkinAtividade.local || '' });
+    const nova = await addPresencaVerificada({ nome: checkinNome.trim(), matricula: '', atividadeId: checkinAtividade.id, local: checkinAtividade.local || '' });
     setCheckinFeito(nova);
   };
 

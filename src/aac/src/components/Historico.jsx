@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getSolicitacoesAluno } from '../db';
+import { getSolicitacoesAluno } from '../api';
 
 const STATUS_BADGE = {
   aprovado:  'badge-green',

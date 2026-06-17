@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { getAtividades, addPresenca, getPresencas } from '../db';
+import { getAtividades, addPresenca, getPresencas } from '../api';
 
 function QRPresenca() {
   const [atividades, setAtividades] = useState([]);
@@ -17,17 +17,19 @@ function QRPresenca() {
 
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErro('');
     if (!form.nome.trim() || !form.atividadeId) { setErro('Preencha todos os campos.'); return; }
 
-    const existing = getPresencas().find(
+    const presencasList = await getPresencas();
+    const existing = presencasList.find(
       (p) => p.nome.toLowerCase() === form.nome.trim().toLowerCase() && p.atividadeId === form.atividadeId
     );
     if (existing) { setPresenca(existing); return; }
 
-    setPresenca(addPresenca({ nome: form.nome.trim(), local: form.local.trim(), matricula: '', atividadeId: form.atividadeId }));
+    const nova = await addPresenca({ nome: form.nome.trim(), local: form.local.trim(), matricula: '', atividadeId: form.atividadeId });
+    setPresenca(nova);
   };
 
   const atividade = atividades.find((a) => a.id === presenca?.atividadeId);

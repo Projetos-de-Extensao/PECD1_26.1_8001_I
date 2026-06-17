@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { getAtividades, addAtividade, getPresencas, getAlunosEmRisco, getSolicitacoes } from '../db';
+import { getAtividades, addAtividade, getPresencas, getAlunosEmRisco, getSolicitacoes } from '../api';
 
 const TIPO_LABEL = { interna: 'Interna', externa: 'Externa' };
 const TIPO_COLOR = { interna: 'badge-green', externa: 'badge-amber' };
@@ -202,15 +202,25 @@ function Secretaria() {
   const [busca, setBusca] = useState('');
 
   useEffect(() => {
-    getAtividades().then(setAtividades);
-    setPresencas(getPresencas());
-    getAlunosEmRisco().then(setAlunosRisco);
-    getSolicitacoes().then((sols) => setTotalAlunos(new Set(sols.map((s) => s.matricula)).size));
+    (async () => {
+      const [atividadesList, presencasList, alunosRiscoList, solicitacoes] = await Promise.all([
+        getAtividades(),
+        getPresencas(),
+        getAlunosEmRisco(),
+        getSolicitacoes(),
+      ]);
+
+      setAtividades(atividadesList);
+      setPresencas(presencasList);
+      setAlunosRisco(alunosRiscoList);
+      setTotalAlunos(new Set(solicitacoes.map((s) => s.matricula)).size);
+    })();
   }, []);
 
   const handleSave = async (form) => {
     const nova = await addAtividade(form);
-    getAtividades().then(setAtividades);
+    const atividadesList = await getAtividades();
+    setAtividades(atividadesList);
     setShowModal(false);
     setQrPopup(nova);
   };
